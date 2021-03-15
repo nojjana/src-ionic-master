@@ -1,0 +1,7 @@
+{
+  "name": "ip6-test-ionic",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,68 @@
+<div *ngIf="playing && devControls && xAxis">
+    <button (click)="left()">Left</button>
+    <button (click)="right()">Right</button>
+</div>
+
+<div *ngIf="playing && devControls && !xAxis">
+    <button (click)="up()">Up</button>
+    <button (click)="down()">Down</button>
+</div>
+
+<img src="assets/labyrinth/xaxis.png" alt="screen" style="padding: 10px; margin-top: 60%;" *ngIf="playing && xAxis">
+<img src="assets/labyrinth/yaxis.png" alt="screen" style="padding: 10px; margin-top: 60%;" *ngIf="playing && !xAxis">
+
+<div *ngIf="tutorial" style="color: white; margin-top: 50px;">
+    <ion-slides #slides [options]="slideOptions">
+        <ion-slide style="padding: 10px;">
+            <p style="text-decoration: underline;">Goal</p>
+            <p style="font-size: 12px; line-height: 15px;">Navigate the ball through the labyrinth.</p>
+            <p style="font-size: 12px; line-height: 15px;">Don't let the ball fall into the holes.</p>
+            <p style="font-size: 12px; line-height: 15px;">You have three lives.</p>
+            <img src="assets/labyrinth/screen.png" alt="screen" style="padding: 10px;">
+            <div class="myButton" style="text-align: center;" (click)="slides.slideNext()">
+                <p style="margin: 0px; font-size: 16px;">Continue</p>
+            </div>
+        </ion-slide>
+        <ion-slide *ngIf="xAxis" style="padding: 10px;">
+            <p style="text-decoration: underline;">Direction</p>
+            <p style="font-size: 12px; line-height: 15px;">You are responsible for the x-axis.</p>
+            <p style="font-size: 12px; line-height: 15px;">Change the tilt of the board using your phone.</p>
+            <img src="assets/labyrinth/xAxis.gif" alt="screen" style="padding: 10px;">
+            <p style="font-size: 12px; line-height: 15px;">Your friend controls the y-axis.</p>
+            <div class="myButton" style="text-align: center;" (click)="endTutorial()">
+                <p style="margin: 0px; font-size: 16px;">Got it!</p>
+            </div>
+        </ion-slide>
+        <ion-slide *ngIf="!xAxis" style="padding: 10px;">
+            <p style="text-decoration: underline;">Direction</p>
+            <p style="font-size: 12px; line-height: 15px;">You are responsible for the y-axis.</p>
+            <p style="font-size: 12px; line-height: 15px;">Change the tilt of the board using your phone.</p>
+            <img src="assets/labyrinth/yAxis.gif" alt="screen" style="padding: 10px;">
+            <p style="font-size: 12px; line-height: 15px;">Your friend controls the x-axis.</p>
+            <div class="myButton" style="text-align: center;" (click)="endTutorial()">
+                <p style="margin: 0px; font-size: 16px;">Got it!</p>
+            </div>
+        </ion-slide>
+    </ion-slides>
+</div>
+
+<div *ngIf="!tutorial && !playing && !played" style="color: white; text-align: center; margin-top: 100px; padding: 20px;">
+    <span>Wait until other player ended the tutorial</span>
+    <span *ngIf="dots == 3">...</span>
+    <span *ngIf="dots == 2">..&nbsp;</span>
+    <span *ngIf="dots == 1">.&nbsp;&nbsp;</span>
+    <span *ngIf="dots == 0">&nbsp;&nbsp;&nbsp;</span>
+</div>
+
+<div *ngIf="showMainMenuButton && played" class="myButton" style="margin-top: 100px; text-align: center;" (click)="goToMainMenu()">
+    <p style="margin: 0px;">Main Menu</p>
+</div>
+
+<div *ngIf="!showMainMenuButton && played" style="color: white; text-align: center; margin-top: 100px; padding: 20px;">
+    <span>Wait until other player went to the main menu</span>
+    <span *ngIf="dots == 3">...</span>
+    <span *ngIf="dots == 2">..&nbsp;</span>
+    <span *ngIf="dots == 1">.&nbsp;&nbsp;</span>
+    <span *ngIf="dots == 0">&nbsp;&nbsp;&nbsp;</span>
+</div>
+

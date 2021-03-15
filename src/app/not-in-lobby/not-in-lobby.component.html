@@ -1,0 +1,27 @@
+<div *ngIf="!socketService.isConnected()" style="padding-top: 100px">
+    <div id="connecting-box">
+        <div style="margin-top: 50px">
+            <span>Connecting to service</span>
+            <span *ngIf="dots == 3">...</span>
+            <span *ngIf="dots == 2">..&nbsp;</span>
+            <span *ngIf="dots == 1">.&nbsp;&nbsp;</span>
+            <span *ngIf="dots == 0">&nbsp;&nbsp;&nbsp;</span>
+        </div>
+    </div>
+  </div>
+  <div *ngIf="socketService.isConnected()" style="width: 100%;">
+    <div style="width: 200px; text-align: center; margin: 100px auto auto;">
+      <input class="game-code-input" placeholder="Game Code" #joinLobbyCode autofocus type="number">
+    </div>
+  
+    <div style="text-align: center; width: 100%; margin-top: 20px">
+      <div class="myButton" (click)="joinLobby(joinLobbyCode.value)">
+        <p style="margin: 0px">Join</p>
+      </div>
+    </div>
+
+    <div style="text-align: center; width: 100%; margin-top: 50px">
+      <p style="margin: 20px; color: white">Go to https://src-fhnw.xyz on a computer to create a lobby.</p>
+    </div>
+  </div>
+  

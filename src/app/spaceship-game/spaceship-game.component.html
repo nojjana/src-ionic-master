@@ -1,0 +1,61 @@
+<div *ngIf="playing && devControls">
+    <button (click)="less()">Less</button>
+    <button (click)="more()">More</button>
+</div>
+
+<img src="assets/spaceship/talking-left.png" alt="screen" style="padding: 10px; margin-top: 60%;" *ngIf="playing && leftSide">
+<img src="assets/spaceship/talking-right.png" alt="screen" style="padding: 10px; margin-top: 60%;" *ngIf="playing && !leftSide">
+
+<div *ngIf="tutorial" style="color: white; margin-top: 50px;">
+    <ion-slides #slides [options]="slideOptions">
+        <ion-slide style="padding: 10px;">
+            <p style="text-decoration: underline;">Goal</p>
+            <p style="font-size: 12px; line-height: 15px;">Move the spaceship through the asteroid field.</p>
+            <p style="font-size: 12px; line-height: 15px;">You have three lives.</p>
+            <img src="assets/spaceship/screen.png" alt="screen" style="padding: 10px;">
+            <div class="myButton" style="text-align: center;" (click)="slides.slideNext()">
+                <p style="margin: 0px; font-size: 16px;">Continue</p>
+            </div>
+        </ion-slide>
+        <ion-slide *ngIf="leftSide" style="padding: 10px;">
+            <p style="text-decoration: underline;">Direction</p>
+            <p style="font-size: 12px; line-height: 15px;">You can move the spaceship by talking into the phone.</p>
+            <p style="font-size: 12px; line-height: 15px;">If you talk into the phone, the spaceship moves left.</p>
+            <img src="assets/spaceship/talking-left.png" alt="screen" style="padding: 10px;">
+            <p style="font-size: 12px; line-height: 15px;">Your friend is responsible for moving the spaceship to the right.</p>
+            <div class="myButton" style="text-align: center;" (click)="endTutorial()">
+                <p style="margin: 0px; font-size: 16px;">Got it!</p>
+            </div>
+        </ion-slide>
+        <ion-slide *ngIf="!leftSide" style="padding: 10px;">
+            <p style="text-decoration: underline;">Direction</p>
+            <p style="font-size: 12px; line-height: 15px;">You can move the spaceship by talking into the phone.</p>
+            <p style="font-size: 12px; line-height: 15px;">If you talk into the phone, the spaceship moves right.</p>
+            <img src="assets/spaceship/talking-right.png" alt="screen" style="padding: 10px;">
+            <p style="font-size: 12px; line-height: 15px;">Your friend is responsible for moving the spaceship to the left.</p>
+            <div class="myButton" style="text-align: center;" (click)="endTutorial()">
+                <p style="margin: 0px; font-size: 16px;">Got it!</p>
+            </div>
+        </ion-slide>
+    </ion-slides>
+</div>
+
+<div *ngIf="!tutorial && !playing && !played" style="color: white; text-align: center; margin-top: 100px; padding: 20px;">
+    <span>Wait until other player ended the tutorial</span>
+    <span *ngIf="dots == 3">...</span>
+    <span *ngIf="dots == 2">..&nbsp;</span>
+    <span *ngIf="dots == 1">.&nbsp;&nbsp;</span>
+    <span *ngIf="dots == 0">&nbsp;&nbsp;&nbsp;</span>
+</div>
+
+<div *ngIf="showMainMenuButton && played" class="myButton" style="margin-top: 100px; text-align: center;" (click)="goToMainMenu()">
+    <p style="margin: 0px;">Main Menu</p>
+</div>
+
+<div *ngIf="!showMainMenuButton && played" style="color: white; text-align: center; margin-top: 100px; padding: 20px;">
+    <span>Wait until other player went to the main menu</span>
+    <span *ngIf="dots == 3">...</span>
+    <span *ngIf="dots == 2">..&nbsp;</span>
+    <span *ngIf="dots == 1">.&nbsp;&nbsp;</span>
+    <span *ngIf="dots == 0">&nbsp;&nbsp;&nbsp;</span>
+</div>
