@@ -12,7 +12,7 @@
 </div>
 <!-- Only displayed if controller is not main-controller -->
 <div *ngIf="mainController == false" style="color: white; text-align: center; margin-top: 50px;">
-  <span>The other player can select a game. Please wait</span>
+  <span>Warte, bis der Spielleiter ein Spiel ausgewählt hat</span>
   <span *ngIf="dots == 3">...</span>
   <span *ngIf="dots == 2">..&nbsp;</span>
   <span *ngIf="dots == 1">.&nbsp;&nbsp;</span>
@@ -20,7 +20,7 @@
 </div>
 
 <div *ngIf="mainController == null" style="color: white; text-align: center; margin-top: 50px;">
-  <span>Wait for more controllers</span>
+  <span>Warte auf mehr Spieler</span>
   <span *ngIf="dots == 3">...</span>
   <span *ngIf="dots == 2">..&nbsp;</span>
   <span *ngIf="dots == 1">.&nbsp;&nbsp;</span>
