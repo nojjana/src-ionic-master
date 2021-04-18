@@ -20,7 +20,7 @@ export class ShakerGameComponent implements OnInit, OnDestroy {
   private devValX: number = 0;
   private devValY: number = 0;
   public devControls;
-  private hitting: boolean = false;
+  private shaking: boolean = false;
   public dots = 0;
   private dotInterval;
   public played = false;
@@ -194,12 +194,21 @@ export class ShakerGameComponent implements OnInit, OnDestroy {
     return val;
   }
 
+  // processData(acceleration: DeviceMotionAccelerationData) {
+  //   if(!this.hitting && acceleration.x > 60){
+  //     this.hitting = true;
+  //     this.socketService.emit('controllerData', null);
+  //   } else if(this.hitting && acceleration.x < 20){
+  //     this.hitting = false;
+  //   }
+  // }
   processData(acceleration: DeviceMotionAccelerationData) {
-    if(!this.hitting && acceleration.x > 60){
-      this.hitting = true;
+    // TODO shaking sensor data
+    if(acceleration.x > 50){
+      this.shaking = true;
       this.socketService.emit('controllerData', null);
-    } else if(this.hitting && acceleration.x < 20){
-      this.hitting = false;
+    } else if (acceleration.x < 20){
+      this.shaking = false;
     }
   }
 }
