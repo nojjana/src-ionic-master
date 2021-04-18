@@ -17,6 +17,7 @@ export class AppComponent {
   public program: Program = Program.NOT_IN_LOBBY;
   public Program = Program;
 
+  
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,

@@ -13,7 +13,8 @@ export class SocketService extends Socket {
 
     constructor() {
       super({url: environment.socketUrl, options: {autoConnect: true}});
-  
+      console.log('test2');
+
       /* Sets to default Program, if connection was lost */
       this.on('disconnect', () => {
         this.connected = false;
@@ -21,9 +22,14 @@ export class SocketService extends Socket {
       });
   
       this.on('connect', () => {
+        console.log('test');
         this.connected = true;
       });
 
+      this.on('connect_error', (error) => {
+        console.log(error);
+      });
+      
       /* Sets the new program and change the view accordingly */
       this.on('currentProgram', (program: Program) => {
         if (this.appComponent != null) {

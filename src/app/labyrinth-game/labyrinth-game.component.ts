@@ -4,6 +4,7 @@ import { Gyroscope, GyroscopeOrientation, GyroscopeOptions } from '@ionic-native
 import { Platform } from '@ionic/angular';
 import { ViewChild } from '@angular/core';
 import { Vibration } from '@ionic-native/vibration/ngx';
+import { DeviceMotion, DeviceMotionAccelerationData } from '@ionic-native/device-motion/ngx';
 
 @Component({
   selector: 'app-labyrinth-game',
@@ -25,7 +26,7 @@ export class LabyrinthGameComponent implements OnInit, OnDestroy {
     allowTouchMove: false
   }
 
-  constructor(private socketService: SocketService, private gyroscope: Gyroscope, private platform: Platform, private vibration: Vibration) {
+  constructor(private deviceMotion: DeviceMotion, private socketService: SocketService, private gyroscope: Gyroscope, private platform: Platform, private vibration: Vibration) {
     this.devControls = !this.platform.is('cordova');
     
     this.dotInterval = setInterval(() => {
@@ -138,10 +139,12 @@ export class LabyrinthGameComponent implements OnInit, OnDestroy {
       frequency: 1000
     }
 
+    
     this.sensorInterval = setInterval(() => {
       this.gyroscope.getCurrent(options)
       .then((orientation: GyroscopeOrientation) => {
         let val = 0;
+        console.log()
 
         if(this.xAxis){
           val = orientation.z;
@@ -153,7 +156,22 @@ export class LabyrinthGameComponent implements OnInit, OnDestroy {
     })
       .catch()
    }, 1000 / 50)
+
+   //INPUT ANDI FÜR ACCELEROMETER
+     /*
+   this.sensorInterval = setInterval(() => {
+    this.deviceMotion.getCurrentAcceleration().then(
+      (acceleration: DeviceMotionAccelerationData) => this.processData(acceleration),
+      (error: any) => console.log(error)
+    );
+  }, 1000 / 60);*/
   }
+
+  //INPUT ANDI
+  /*
+  processData(acceleration: DeviceMotionAccelerationData) {
+    console.log(acceleration.x, acceleration.y, acceleration.z);
+  }*/
 
   ngOnDestroy() {
     clearInterval(this.sensorInterval);

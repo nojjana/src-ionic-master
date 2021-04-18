@@ -4,11 +4,14 @@
 
 export const environment = {
   production: false,
-  socketUrl: 'http://localhost:3005',
+  socketUrl: 'http://192.168.43.94:3005',
+  // socketUrl: 'http://172.21.64.1:3005'
+  // socketUrl: 'http://localhost:3005',
   // socketUrl: 'http://192.168.0.138:3005'
   // socketUrl: 'https://src-fhnw.xyz:3005'
   // socketUrl: 'http://192.168.4.209:3005',
 };
+
 
 /*
  * For easier debugging in development mode, you can import the following file
