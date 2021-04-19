@@ -15,7 +15,7 @@ export class ShakerGameComponent implements OnInit, OnDestroy {
   private sensorInterval: any;
   public tutorial: boolean = false;
   public playing: boolean = false;
-  public moving: boolean;
+  public moving: boolean;   // controller that moves (vs controller that hits)
   public showMainMenuButton: boolean = false;
   private devValX: number = 0;
   private devValY: number = 0;
@@ -40,7 +40,7 @@ export class ShakerGameComponent implements OnInit, OnDestroy {
     }, 500);
   }
 
-  // Development Controls
+  // Development Controls (Buttons)
   public left(): void {
     if(this.moving){
       this.devValX -= 5;
@@ -72,6 +72,12 @@ export class ShakerGameComponent implements OnInit, OnDestroy {
     }
   }
 
+  public shake(): void {
+    // TODO
+      console.log('shake button pressed');
+      this.socketService.emit('controllerData');
+  }
+
   public endTutorial(): void {
     this.socketService.emit('endedTutorial');
     this.tutorial = false;
@@ -93,11 +99,13 @@ export class ShakerGameComponent implements OnInit, OnDestroy {
     this.socketService.once('controllerResponsibility', (data) => {
       this.moving = data;
       
-      if(this.moving){
-        console.log('move Controller');
-      } else {
-        console.log('hit Controller');
-      }
+      console.log('Shake Controller');
+
+      // if(this.moving){
+      //   console.log('move Controller');
+      // } else {
+      //   console.log('hit Controller');
+      // }
 
       this.tutorial = true;
     });
@@ -206,9 +214,12 @@ export class ShakerGameComponent implements OnInit, OnDestroy {
     // TODO shaking sensor data
     if(acceleration.x > 50){
       this.shaking = true;
+      console.log('Shaking!');
+      console.log('Emitting controllerData');
       this.socketService.emit('controllerData', null);
     } else if (acceleration.x < 20){
       this.shaking = false;
+      console.log('Stopped shaking. Not emmitting controllerData');
     }
   }
 }

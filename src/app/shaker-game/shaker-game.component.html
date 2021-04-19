@@ -6,7 +6,8 @@
 </div>
 
 <div *ngIf="playing && !moving && devControls">
-    <button (click)="hit()">Schütteln</button>
+    <!-- <button (click)="hit()">Hit</button> -->
+    <button (click)="shake()">Schütteln</button>
 </div>
 
 
@@ -39,12 +40,22 @@
             <p style="text-decoration: underline;">Wie?</p>
             <p style="font-size: 12px; line-height: 15px;">Euer Handy ist euer Werkzeug.</p>
             <p style="font-size: 12px; line-height: 15px;">Schüttelt das Handy, um die Objekte zu schütteln.</p>
-            <img src="assets/shaker/move.gif" alt="screen" style="padding: 10px;">
+            <img src="assets/shaker/hit.gif" alt="screen" style="padding: 10px;">
             <p style="font-size: 12px; line-height: 15px;">Je mehr ihr alle gemeinsam schüttelt, desto mehr Früchte fallen!</p>
             <div class="myButton" style="text-align: center;" (click)="endTutorial()">
                 <p style="margin: 0px; font-size: 16px;">Alles klar!</p>
             </div>
         </ion-slide>
+        <!-- <ion-slide *ngIf="!moving" style="padding: 10px;">
+            <p style="text-decoration: underline;">Wie?</p>
+            <p style="font-size: 12px; line-height: 15px;">Euer Handy ist euer Werkzeug.</p>
+            <p style="font-size: 12px; line-height: 15px;">Schüttelt das Handy, um die Objekte zu schütteln.</p>
+            <img src="assets/shaker/move.gif" alt="screen" style="padding: 10px;">
+            <p style="font-size: 12px; line-height: 15px;">Je mehr ihr alle gemeinsam schüttelt, desto mehr Früchte fallen!</p>
+            <div class="myButton" style="text-align: center;" (click)="endTutorial()">
+                <p style="margin: 0px; font-size: 16px;">Alles klar!</p>
+            </div>
+        </ion-slide> -->
     </ion-slides>
 </div>
 
