@@ -75,7 +75,7 @@ export class ShakerGameComponent implements OnInit, OnDestroy {
   public shake(): void {
     // TODO
       console.log('shake button pressed');
-      this.socketService.emit('controllerData');
+      this.socketService.emit('controllerData', true);
   }
 
   public endTutorial(): void {
@@ -97,7 +97,7 @@ export class ShakerGameComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.socketService.once('controllerResponsibility', (data) => {
-      this.moving = data;
+      this.moving = data;  // true move, false hit
       
       console.log('Shake Controller');
 
@@ -212,14 +212,14 @@ export class ShakerGameComponent implements OnInit, OnDestroy {
   // }
   processData(acceleration: DeviceMotionAccelerationData) {
     // TODO shaking sensor data
-    if(acceleration.x > 50){
+    if(acceleration.x > 40){
       this.shaking = true;
-      console.log('Shaking!');
-      console.log('Emitting controllerData');
-      this.socketService.emit('controllerData', null);
+      console.log('Shaking! Emitting controllerData (true = isShaking)');
+      this.socketService.emit('controllerData', true);
     } else if (acceleration.x < 20){
       this.shaking = false;
-      console.log('Stopped shaking. Not emmitting controllerData');
+      console.log('Not shaking! Emitting controllerData (false = !isShaking)');
+      this.socketService.emit('controllerData', false);
     }
   }
 }
