@@ -108,7 +108,8 @@ export class ShakerGameComponent implements OnInit, OnDestroy {
       //   console.log('hit Controller');
       // }
 
-      this.tutorial = true;
+      // TODO tutorial wieder einkommentieren
+      // this.tutorial = true;
     });
 
     this.socketService.once('stopSendingData', (mainControllerId) => {
@@ -218,11 +219,12 @@ export class ShakerGameComponent implements OnInit, OnDestroy {
       console.log('Shaking! Emitting controllerData.');
       // this.socketService.emit('controllerData', true);
       this.socketService.emit('controllerData', null);
+      this.vibration.vibrate(1000);
 
     } else if (acceleration.x < 20){
       this.shaking = false;
       // console.log('Not shaking! Emitting controllerData (false = !isShaking)');
-      // this.socketService.emit('controllerData', falsegit f);
+      // this.socketService.emit('controllerData', false);
     }
   }
 }
