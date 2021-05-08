@@ -40,7 +40,75 @@ export class ShakerGameComponent implements OnInit, OnDestroy {
     }, 500);
   }
 
-  // Development Controls (Buttons)
+
+
+
+  ngOnInit() {
+    this.socketService.once('controllerResponsibility', (data) => {
+      this.moving = data;  // true move, false hit
+      
+      console.log('Shake Controller');
+
+      // if(this.moving){
+      //   console.log('move Controller');
+      // } else {
+      //   console.log('hit Controller');
+      // }
+
+      this.tutorial = true;
+      // TODO xxx wieder löschen - tutorial wird gleich beendet fürs testing
+      this.endTutorial();
+
+    });
+
+    this.socketService.once('stopSendingData', (mainControllerId) => {
+      console.log('stop sending data');
+      this.playing = false;
+      this.played = true;
+      this.showMainMenuButton = mainControllerId;
+      
+      if(this.showMainMenuButton){
+        this.vibration.vibrate(1000);
+      }
+      
+      clearInterval(this.sensorInterval);
+    });
+
+    this.socketService.emit('controllerReady');
+
+    /*For testing*/
+    this.socketService.once('startSendingData', () => {
+      this.playing = true;
+      console.log('start Sending data');
+      
+      if(this.devControls && this.moving){
+        this.sensorInterval = setInterval(() => {
+          let x = this.calculateXGravity(this.devValX);
+          let y = this.caluclateYGravity(this.devValY);
+
+          this.socketService.emit('controllerData', [x, y]);
+        }, 1000 / 50)
+      } else if(!this.devControls && this.moving){
+        this.startMovementSensor();
+      } else if(!this.devControls && !this.moving){
+        this.startAccelerometerSensor();
+      }
+    });
+  }
+
+  
+
+  ngOnDestroy() {
+    clearInterval(this.sensorInterval);
+    this.socketService.removeListener('controllerResponsibility');
+    this.socketService.removeListener('stopSendingData');
+    this.socketService.removeListener('startSendingData');
+    clearInterval(this.dotInterval);
+  }
+
+
+
+  /* Development Controls (Buttons) */
   public left(): void {
     if(this.moving){
       this.devValX -= 5;
@@ -86,65 +154,6 @@ export class ShakerGameComponent implements OnInit, OnDestroy {
 
   public goToMainMenu(): void {
     this.socketService.emit('goToMainMenu');
-  }
-
-  ngOnDestroy() {
-    clearInterval(this.sensorInterval);
-    this.socketService.removeListener('controllerResponsibility');
-    this.socketService.removeListener('stopSendingData');
-    this.socketService.removeListener('startSendingData');
-    clearInterval(this.dotInterval);
-  }
-
-  ngOnInit() {
-    this.socketService.once('controllerResponsibility', (data) => {
-      this.moving = data;  // true move, false hit
-      
-      console.log('Shake Controller');
-
-      // if(this.moving){
-      //   console.log('move Controller');
-      // } else {
-      //   console.log('hit Controller');
-      // }
-
-      // TODO tutorial wieder einkommentieren
-      // this.tutorial = true;
-    });
-
-    this.socketService.once('stopSendingData', (mainControllerId) => {
-      console.log('stop sending data');
-      this.playing = false;
-      this.played = true;
-      this.showMainMenuButton = mainControllerId;
-      
-      if(this.showMainMenuButton){
-        this.vibration.vibrate(1000);
-      }
-      
-      clearInterval(this.sensorInterval);
-    });
-
-    this.socketService.emit('controllerReady');
-
-    /*For testing*/
-    this.socketService.once('startSendingData', () => {
-      this.playing = true;
-      console.log('start Sending data');
-      
-      if(this.devControls && this.moving){
-        this.sensorInterval = setInterval(() => {
-          let x = this.calculateXGravity(this.devValX);
-          let y = this.caluclateYGravity(this.devValY);
-
-          this.socketService.emit('controllerData', [x, y]);
-        }, 1000 / 50)
-      } else if(!this.devControls && this.moving){
-        this.startMovementSensor();
-      } else if(!this.devControls && !this.moving){
-        this.startAccelerometerSensor();
-      }
-    });
   }
 
   private startAccelerometerSensor(): void {
@@ -227,4 +236,6 @@ export class ShakerGameComponent implements OnInit, OnDestroy {
       // this.socketService.emit('controllerData', false);
     }
   }
+
+
 }
