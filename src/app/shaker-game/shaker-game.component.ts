@@ -57,7 +57,7 @@ export class ShakerGameComponent implements OnInit, OnDestroy {
 
       this.tutorial = true;
       // TODO xxx wieder löschen - tutorial wird gleich beendet fürs testing
-      this.endTutorial();
+      // this.endTutorial();
 
     });
 
@@ -228,7 +228,7 @@ export class ShakerGameComponent implements OnInit, OnDestroy {
       console.log('Shaking! Emitting controllerData.');
       // this.socketService.emit('controllerData', true);
       this.socketService.emit('controllerData', null);
-      this.vibration.vibrate(1000);
+      this.vibration.vibrate(200);
 
     } else if (acceleration.x < 20){
       this.shaking = false;
