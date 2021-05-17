@@ -11,8 +11,8 @@
 </div>
 
 
-<img src="assets/shaker/move.png" alt="screen" style="padding: 10px; margin-top: 60%;" *ngIf="playing && moving">
-<img src="assets/shaker/hit1.png" alt="screen" style="padding: 10px; margin-top: 60%;" *ngIf="playing && !moving">
+<!-- <img src="assets/shaker/move.png" alt="screen" style="padding: 10px; margin-top: 60%;" *ngIf="playing && moving"> -->
+<img src="assets/shaker/shake-phone.gif" alt="screen" style="padding: 10px; margin-top: 40%;" *ngIf="playing && !moving">
 
 <div *ngIf="tutorial" style="color: white; margin-top: 50px;">
     <ion-slides #slides [options]="slideOptions">
