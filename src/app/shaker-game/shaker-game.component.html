@@ -15,29 +15,36 @@
 <img src="assets/shaker/shake-phone.gif" alt="screen" style="padding: 10px; margin-top: 40%;" *ngIf="playing && !moving">
 
 
-<div *ngIf="tutorial" style="color: white; margin-top: 50px;">
+<div *ngIf="tutorial" style="color: white; margin-top: 0px;">
+    <button style="margin-top: 5px;" (click)="endTutorial()">Überspringen</button>
     <ion-slides #slides [options]="slideOptions">
-        <ion-slide style="padding: 10px;">
-            <p style="text-decoration: underline;">Schütteln!</p>
-            <p style="font-size: 12px; line-height: 15px;">In diesem Spiel musst du dein Handy schütteln.</p>
+        <ion-slide style="padding: 5px;">
+            <p style="font-size: 35px;">Schütteln!</p>
+            <p>In diesem Spiel musst du dein Handy schütteln.</p>
             <!-- <p style="font-size: 12px; line-height: 15px;">Sammelt nur Zutaten, die ihr braucht.</p> -->
             <!-- <p style="font-size: 12px; line-height: 15px;">Los geht's!</p> -->
-            <img src="assets/shaker/shake-phone.gif" alt="screen" style="padding: 10px;">
+            <img src="assets/shaker/shake-phone.gif" alt="screen" style="padding: 10px; height: 200px;">
             <div class="myButton" style="text-align: center;" (click)="slides.slideNext()">
-                <p style="margin: 0px; font-size: 16px;">Weiter</p>
+                <p style="margin: 0px;">Weiter</p>
             </div>
         </ion-slide>
-        <ion-slide style="padding: 10px;">
-            <p style="text-decoration: underline;">Früchte sammeln</p>
+        <ion-slide style="padding: 5px;">
+            <p style="font-size: 35px;">Früchte sammeln</p>
             <!-- <p style="font-size: 12px; line-height: 15px;">Wenn du fest schüttelst, fallen Früchte von den Bäumen.</p> -->
-            <p style="font-size: 12px; line-height: 15px;">Je mehr ihr schüttelt, desto mehr Früchte fallen.</p>
-            <p style="font-size: 12px; line-height: 15px;">Mehr Früchte, mehr Saft. Wie viele Becher schafft ihr?</p>
-
-            <!-- <p style="font-size: 12px; line-height: 15px;">Je mehr ihr alle gemeinsam schüttelt, desto mehr Früchte fallen!</p> -->
-            <img src="assets/shaker/screen.png" alt="screen" style="padding: 10px;">
-            <p style="font-size: 12px; line-height: 15px;">Aber Achtung: Sammelt nur die Früchte, die auf der Liste stehen!</p>
+            <p style="font-size: 20px;">Wenn ihr schüttelt, fallen die Früchte. Sammelt so viele wie möglich!</p>
+            <img src="assets/shaker/screen.png" alt="screen" style="padding: 5px; height: 200px;">
+            <div class="myButton" style="text-align: center;" (click)="slides.slideNext()">
+                <p style="margin: 0px;">Weiter</p>
+            </div>
+        </ion-slide>
+        <ion-slide style="padding: 5px;">
+            <p style="font-size: 40px;">Aber Achtung!</p>
+            <!-- <p style="font-size: 12px; line-height: 15px;">Wenn du fest schüttelst, fallen Früchte von den Bäumen.</p> -->
+            <p style="font-size: 20px;">Sammelt nur die Früchte, die links auf der Liste stehen!</p>
+            <img src="assets/shaker/screen.png" alt="screen" style="padding: 5px; height: 200px;">
+            <p style="font-size: 20px;">Wie viele Becher Saft schafft ihr?</p>
             <div class="myButton" style="text-align: center;" (click)="endTutorial()">
-                <p style="margin: 0px; font-size: 16px;">Los geht's!</p>
+                <p style="margin: 0px;">Los geht's!</p>
             </div>
         </ion-slide>
         <!-- <ion-slide *ngIf="!moving" style="padding: 10px;">
