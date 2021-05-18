@@ -1,18 +1,19 @@
-<div *ngIf="playing && moving && devControls">
+<!-- <div *ngIf="playing && moving && devControls">
     <button (click)="left()">Links</button>
     <button (click)="right()">Rechts</button>
     <button (click)="up()">Hoch</button>
     <button (click)="down()">Runter</button>
-</div>
+</div> -->
 
-<div *ngIf="playing && !moving && devControls">
+<!-- <button (click)="quitGame()">Abbrechen</button> -->
+<div *ngIf="playing && devControls">
     <!-- <button (click)="hit()">Hit</button> -->
-    <button (click)="shake()">Schütteln</button>
+    <button style="margin-top: 20px;" (click)="shake()">Schütteln</button>
 </div>
-
 
 <!-- <img src="assets/shaker/move.png" alt="screen" style="padding: 10px; margin-top: 60%;" *ngIf="playing && moving"> -->
 <img src="assets/shaker/shake-phone.gif" alt="screen" style="padding: 10px; margin-top: 40%;" *ngIf="playing && !moving">
+
 
 <div *ngIf="tutorial" style="color: white; margin-top: 50px;">
     <ion-slides #slides [options]="slideOptions">

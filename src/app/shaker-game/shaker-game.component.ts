@@ -27,6 +27,7 @@ export class ShakerGameComponent implements OnInit, OnDestroy {
   public slideOptions = {
     allowTouchMove: false
   }
+  controllerQuitGame = false;
 
   constructor( private socketService: SocketService, private gyroscope: Gyroscope, 
     private deviceMotion: DeviceMotion, private platform: Platform, private vibration: Vibration) { 
@@ -156,6 +157,13 @@ export class ShakerGameComponent implements OnInit, OnDestroy {
     this.socketService.emit('goToMainMenu');
   }
 
+  public quitGame(): void {
+    console.log("ionic: quitGame() called");
+    this.controllerQuitGame = true;
+    this.socketService.emit('quitGame');
+  }
+
+
   private startAccelerometerSensor(): void {
     this.sensorInterval = setInterval(() => {
       this.deviceMotion.getCurrentAcceleration().then(
@@ -223,14 +231,14 @@ export class ShakerGameComponent implements OnInit, OnDestroy {
   // }
   processData(acceleration: DeviceMotionAccelerationData) {
     // TODO shaking sensor data
-    if(acceleration.x > 25){
+    if(acceleration.x > 20 || acceleration.y > 20 || acceleration.z > 20){
       this.shaking = true;
       console.log('Shaking! Emitting controllerData.');
       // this.socketService.emit('controllerData', true);
       this.socketService.emit('controllerData', null);
       this.vibration.vibrate(200);
 
-    } else if (acceleration.x < 20){
+    } else if (acceleration.x < 20 && acceleration.y < 20 && acceleration.z < 20){
       this.shaking = false;
       // console.log('Not shaking! Emitting controllerData (false = !isShaking)');
       // this.socketService.emit('controllerData', false);
