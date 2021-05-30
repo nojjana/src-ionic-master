@@ -4,8 +4,9 @@
 
 export const environment = {
   production: false,
-  socketUrl: 'http://192.168.43.37:3005',
-  // socketUrl: 'http://192.168.43.94:3005',
+  // socketUrl: 'http://192.168.43.37:3005',  // Debby hotspot
+  // socketUrl: 'http://192.168.43.94:3005',  // Noemi hotspot
+  socketUrl: 'http://192.168.1.50:3005',  // Noemi wiler wlan
   // socketUrl: 'http://172.21.64.1:3005'
   // socketUrl: 'http://localhost:3005',
   // socketUrl: 'http://192.168.0.138:3005'
