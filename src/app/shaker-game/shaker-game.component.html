@@ -5,10 +5,10 @@
     <button (click)="down()">Runter</button>
 </div> -->
 
-<!-- <button (click)="quitGame()">Abbrechen</button> -->
 <div *ngIf="playing && devControls">
     <!-- <button (click)="hit()">Hit</button> -->
     <button style="margin-top: 20px;" (click)="shake()">Schütteln</button>
+    <button style="text-align: right;"(click)="quitGame()">Abbrechen</button> 
 </div>
 
 <!-- <img src="assets/shaker/move.png" alt="screen" style="padding: 10px; margin-top: 60%;" *ngIf="playing && moving"> -->

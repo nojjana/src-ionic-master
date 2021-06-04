@@ -158,8 +158,6 @@ export class ShakerGameComponent implements OnInit, OnDestroy {
   }
 
   public quitGame(): void {
-    console.log("ionic: quitGame() called");
-    this.controllerQuitGame = true;
     this.socketService.emit('quitGame');
   }
 
