@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DeviceMotion, DeviceMotionAccelerationData } from '@ionic-native/device-motion/ngx';
 import { SocketService } from '../socket-service/socket.service';
 import { Gyroscope, GyroscopeOptions, GyroscopeOrientation } from '@ionic-native/gyroscope/ngx';
+import { DeviceOrientation, DeviceOrientationCompassHeading, DeviceOrientationCompassOptions } from '@ionic-native/device-orientation/ngx';
 import { environment } from 'src/environments/environment';
 import { Platform } from '@ionic/angular';
 import { Vibration } from '@ionic-native/vibration/ngx';
@@ -13,8 +14,9 @@ import { Vibration } from '@ionic-native/vibration/ngx';
 })
 export class CatcherGameComponent implements OnInit, OnDestroy {
   private sensorInterval: any;
-  public tutorial = false;
+  public tutorial = false
   public playing = false;
+  public countdown = false;
   public catchingController = true;
   public showMainMenuButton: boolean = false;
   private devValY: number = 0;
@@ -30,9 +32,12 @@ export class CatcherGameComponent implements OnInit, OnDestroy {
   currentOY = 0;
   currentOZ = 0;
   justSendedData: any;
+  private devVal: number = 0;
+  initHeadingOfController: number;
 
   constructor(private socketService: SocketService, private gyroscope: Gyroscope,
-    private deviceMotion: DeviceMotion, private platform: Platform, private vibration: Vibration) {
+    private deviceMotion: DeviceMotion, private deviceOrientation: DeviceOrientation, 
+    private platform: Platform, private vibration: Vibration) {
     this.devControls = !this.platform.is('cordova');
 
     this.dotInterval = setInterval(() => {
@@ -44,8 +49,6 @@ export class CatcherGameComponent implements OnInit, OnDestroy {
   }
 
 
-
-
   ngOnInit() {
     this.socketService.once('controllerResponsibility', (data) => {
       this.catchingController = data;
@@ -53,7 +56,7 @@ export class CatcherGameComponent implements OnInit, OnDestroy {
 
       this.tutorial = true;
       // TODO xxx wieder löschen - tutorial wird gleich beendet fürs testing
-      // this.endTutorial();
+      this.endTutorial();
 
     });
 
@@ -72,23 +75,19 @@ export class CatcherGameComponent implements OnInit, OnDestroy {
 
     this.socketService.emit('controllerReady');
 
-    // dev controls for testing
     this.socketService.once('startSendingData', () => {
       this.playing = true;
       console.log('start Sending data');
 
-      if (this.devControls && this.catchingController) {
-        // this.sensorInterval = setInterval(() => {
-        //   this.socketService.emit('controllerData', [this.devValY]);
-        // }, 1000 / 50)
-      } else if (!this.devControls && this.catchingController) {
-        // this.startAccelerometerSensor();
-        this.startGyroRotationSensor();
+      if (this.devControls) {
+        // this.startDevControls();
+      } else {
+        this.startSensor();
       }
     });
   }
 
-
+  
   ngOnDestroy() {
     clearInterval(this.sensorInterval);
     this.socketService.removeListener('controllerResponsibility');
@@ -99,36 +98,131 @@ export class CatcherGameComponent implements OnInit, OnDestroy {
 
 
 
-  /* Development Controls (Buttons) */
+    /* -------------------- DEV CONTROLS --------------------*/
+
+    private startDevControls(): void {
+    this.sensorInterval = setInterval(() => {
+      console.log("devVal:", this.devVal);
+      this.socketService.emit('controllerData', [this.calculateGravity(this.devVal)]);
+   }, 1000 / 50)
+  }
+  
   public left(): void {
-    if (this.catchingController) {
-      this.devValY += 5;  // to camera left
-      this.socketService.emit('controllerData', [this.devValY]);
-    }
+      this.devVal += 5;
   }
 
   public right(): void {
-    if (this.catchingController) {
-      this.devValY -= 5;  // to home button right
-      this.socketService.emit('controllerData', [this.devValY]);
+      this.devVal -= 5;
+  }
+
+  /* -------------------- SENSOR METHODS --------------------*/
+
+    
+  private startSensor() {
+    // this.startAccelerometerSensor();
+    // this.startGyroOrientationSensor();
+    this.startDeviceOrientationSensor();
+  }
+  private startDeviceOrientationSensor() {
+    // while (this.initHeadingOfController == undefined) {
+    //   console.log("Getting initial magnetic heading of controller...", this.initHeadingOfController);
+    //   this.determineInitHeadingOfController();
+    // }
+    // console.log("initHeadingOfController:", this.initHeadingOfController);
+    this.sensorInterval = setInterval(() => {
+    // Get the device current compass heading
+    this.deviceOrientation.getCurrentHeading()
+    .then(
+      (data: DeviceOrientationCompassHeading) => this.processDeviceOrientationData(data),
+      (error: any) => console.log(error)
+    );
+    }, 1000 / 50);
+
+    // Watch the device compass heading change
+// var subscription = this.deviceOrientation.watchHeading().subscribe(
+//   (data: DeviceOrientationCompassHeading) => console.log(data)
+// );
+
+  }
+  private determineInitHeadingOfController(data: DeviceOrientationCompassHeading) {
+    this.initHeadingOfController = data.magneticHeading;
+    console.log("Getting initial magnetic heading of controller...", this.initHeadingOfController);
+  }
+  private processDeviceOrientationData(data: DeviceOrientationCompassHeading): any {
+    if (this.initHeadingOfController == undefined || this.initHeadingOfController <= 0) {
+      this.determineInitHeadingOfController(data);
+    } else {
+      let currentHeading = data.magneticHeading;
+      if (currentHeading != null && currentHeading >= 0) {
+        console.log("magneticHeading:", currentHeading);
+        this.socketService.emit('controllerData', [this.calculateOrientation(currentHeading)]);
+      }
     }
+
+  }
+  private calculateOrientation(currentHeading: number): any {
+    let val = 0;
+    let threshold = 20;
+    let diff = currentHeading - this.initHeadingOfController;
+    if (diff > threshold) {
+      val = 1
+    } else if (diff < -threshold) {
+      val = -1
+    } else {
+      val = 0;
+    }
+    return val;
   }
 
-  public endTutorial(): void {
-    this.socketService.emit('endedTutorial');
-    this.tutorial = false;
+
+  // gyro: rotation/twist of phone
+  private startGyroOrientationSensor(): void {
+    let options: GyroscopeOptions = {
+      frequency: 1000
+    }
+
+    this.sensorInterval = setInterval(() => {
+      this.gyroscope.getCurrent(options)
+        .then(
+          (orientation: GyroscopeOrientation) => {
+            this.processGyroOrientationData(orientation);
+          })
+        .catch()
+    }, 1000 / 50);
   }
 
-  public goToMainMenu(): void {
-    this.socketService.emit('goToMainMenu');
+  private processGyroOrientationData(orientation: GyroscopeOrientation) {
+    let val = orientation.y;
+
+    if (val != null && val != 0) {
+      this.socketService.emit('controllerData', [this.calculateGravity(val)]);
+      console.log("orientation y", orientation.y);
+    }
+    // this.socketService.emit('controllerData', [orientation.y]);
+    // console.log("orientation z", orientation.z);
+    // this.socketService.emit('controllerData', [orientation.z]);
   }
 
-  public quitGame(): void {
-    console.log("ionic: quitGame() called");
-    this.controllerQuitGame = true;
-    this.socketService.emit('quitGame');
+  
+  private calculateGravity(val: number): number {
+    let threshold = 20;
+
+    threshold = 10;
+    val = -val;
+  
+    if(val > threshold){
+      val = 1;
+    } else if(val < -threshold){
+      val = -1;
+    } else {
+      val = 1 / threshold * val;
+    }
+
+    return val;
   }
 
+
+  // TODO: Accel. brauchen wir nicht mehr, wenn wir die "Zeigen-Geste" verwenden.
   // accelerometer: beschleunigung in 3 achsen
   private startAccelerometerSensor(): void {
     this.sensorInterval = setInterval(() => {
@@ -154,25 +248,22 @@ export class CatcherGameComponent implements OnInit, OnDestroy {
     }
   }
 
-  // gyro: rotation/twist of phone
-  private startGyroRotationSensor(): void {
-    let options: GyroscopeOptions = {
-      frequency: 1000
+
+    /* -------------------- BASIC GAME METHODS --------------------*/
+
+    public endTutorial(): void {
+      this.socketService.emit('endedTutorial');
+      this.tutorial = false;
     }
-
-    this.sensorInterval = setInterval(() => {
-      this.gyroscope.getCurrent(options)
-        .then(
-          (orientation: GyroscopeOrientation) => {
-            this.processGyroData(orientation);
-          })
-        .catch()
-    }, 1000 / 50);
-  }
-
-  private processGyroData(orientation: GyroscopeOrientation) {
-    // console.log("orientation", orientation.x, orientation.y, orientation.z);
-    this.socketService.emit('controllerData', [orientation.z]);
-  }
+  
+    public goToMainMenu(): void {
+      this.socketService.emit('goToMainMenu');
+    }
+  
+    public quitGame(): void {
+      console.log("ionic: quitGame() called");
+      this.controllerQuitGame = true;
+      this.socketService.emit('quitGame');
+    }
 
 }
