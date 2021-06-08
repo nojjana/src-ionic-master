@@ -16,6 +16,7 @@ import { LabyrinthGameComponent } from './labyrinth-game/labyrinth-game.componen
 import { SpaceshipGameComponent } from './spaceship-game/spaceship-game.component';
 import { WhackAMoleGameComponent } from './whack-a-mole-game/whack-a-mole-game.component';
 import { ShakerGameComponent } from './shaker-game/shaker-game.component';
+import { CatcherGameComponent } from './catcher-game/catcher-game.component';
 import { DeviceOrientation } from '@ionic-native/device-orientation/ngx';
 import { DeviceMotion } from '@ionic-native/device-motion/ngx';
 import { Insomnia } from '@ionic-native/insomnia/ngx';
@@ -29,7 +30,7 @@ import { GameRunningComponent } from './modals/game-running/game-running.compone
 
 @NgModule({
   declarations: [AppComponent, NotInLobbyComponent, MainMenuComponent, LabyrinthGameComponent, 
-    SpaceshipGameComponent, WhackAMoleGameComponent, ShakerGameComponent, NoDisplaysErrorComponent,
+    SpaceshipGameComponent, WhackAMoleGameComponent, ShakerGameComponent, CatcherGameComponent, NoDisplaysErrorComponent,
     LobbyFullComponent, WrongLobbyCodeComponent, VarianzTestComponent, GameRunningComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, NgxSmartModalModule.forRoot()],

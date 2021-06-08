@@ -1,0 +1,61 @@
+<!-- <button (click)="quitGame()">Abbrechen</button> -->
+
+<div *ngIf="devControls && playing">
+    <button style="margin-top: 20px;" (click)="left()">Links</button>
+    <button style="margin-top: 20px;" (click)="right()">Rechts</button>
+</div>
+
+<img src="assets/shaker/shake-phone.gif" alt="screen" style="padding: 10px; margin-top: 40%;" *ngIf="playing && !moving">
+
+
+<div *ngIf="tutorial" style="color: white; margin-top: 0px;">
+    <button style="margin-top: 5px;" (click)="endTutorial()">Überspringen</button>
+    <ion-slides #slides [options]="slideOptions">
+        <ion-slide style="padding: 5px;">
+            <p style="font-size: 35px;">Links & Rechts</p>
+            <p>In diesem Spiel musst du dein Handy nach links und rechts bewegen.</p>
+            <img src="assets/shaker/shake-phone.gif" alt="screen" style="padding: 10px; height: 200px;">
+            <div class="myButton" style="text-align: center;" (click)="slides.slideNext()">
+                <p style="margin: 0px;">Weiter</p>
+            </div>
+        </ion-slide>
+        <ion-slide style="padding: 5px;">
+            <p style="font-size: 35px;">Früchte auffangen</p>
+            <p style="font-size: 20px;">Fangt die fallenden Früchte auf. So viele wie möglich!</p>
+            <img src="assets/shaker/screen.png" alt="screen" style="padding: 5px; height: 200px;">
+            <div class="myButton" style="text-align: center;" (click)="slides.slideNext()">
+                <p style="margin: 0px;">Weiter</p>
+            </div>
+        </ion-slide>
+        <ion-slide style="padding: 5px;">
+            <p style="font-size: 40px;">Aber Achtung!</p>
+            <p style="font-size: 20px;">Fangt nur die Früchte, die links auf der Liste stehen!</p>
+            <img src="assets/shaker/screen.png" alt="screen" style="padding: 5px; height: 200px;">
+            <p style="font-size: 20px;">Wie viele Becher Saft schafft ihr?</p>
+            <div class="myButton" style="text-align: center;" (click)="endTutorial()">
+                <p style="margin: 0px;">Los geht's!</p>
+            </div>
+        </ion-slide>
+    </ion-slides>
+</div>
+
+<div *ngIf="!tutorial && !playing && !played" style="color: white; text-align: center; margin-top: 100px; padding: 20px;">
+    <span>Warte, bis alle das Tutorial abgeschlossen haben</span>
+    <span *ngIf="dots == 3">...</span>
+    <span *ngIf="dots == 2">..&nbsp;</span>
+    <span *ngIf="dots == 1">.&nbsp;&nbsp;</span>
+    <span *ngIf="dots == 0">&nbsp;&nbsp;&nbsp;</span>
+</div>
+
+<div *ngIf="showMainMenuButton && played" class="myButton" style="margin-top: 100px; text-align: center;" (click)="goToMainMenu()">
+    <p style="margin: 0px;">Hauptmenü</p>
+</div>
+
+<div *ngIf="!showMainMenuButton && played" style="color: white; text-align: center; margin-top: 100px; padding: 20px;">
+    <span>Warte, bis der Spielleiter zum Hauptmenü gewechselt hat</span>
+    <span *ngIf="dots == 3">...</span>
+    <span *ngIf="dots == 2">..&nbsp;</span>
+    <span *ngIf="dots == 1">.&nbsp;&nbsp;</span>
+    <span *ngIf="dots == 0">&nbsp;&nbsp;&nbsp;</span>
+</div>
+
