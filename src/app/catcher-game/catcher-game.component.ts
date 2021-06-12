@@ -125,7 +125,7 @@ export class CatcherGameComponent implements OnInit, OnDestroy {
   }
   private startDeviceOrientationSensor() {
     // while (this.initHeadingOfController == undefined) {
-    //   console.log("Getting initial magnetic heading of controller...", this.initHeadingOfController);
+    //   console.log("Getting initial magneticHeading heading of controller...", this.initHeadingOfController);
     //   this.determineInitHeadingOfController();
     // }
     // console.log("initHeadingOfController:", this.initHeadingOfController);
@@ -162,14 +162,14 @@ export class CatcherGameComponent implements OnInit, OnDestroy {
     // startposition of phone (reference for center)
     // -> after countdown: hold it pointing to the center of the screen!
     this.initHeadingOfController = data.magneticHeading;
-    console.log("Getting initial magnetic heading of controller...", this.initHeadingOfController);
+    console.log("Getting initial magneticHeading of controller...", this.initHeadingOfController);
   }
 
   private calculateOrientation(currentHeading: number): any {
 
     // TODO solve better!
 
-    let val = 0;
+    let val = null;
     let threshold = 20;
 
     // norm currentHeading as if initHeadingOfController was 0
@@ -182,15 +182,18 @@ export class CatcherGameComponent implements OnInit, OnDestroy {
     }
     
     // left or right?
-    if (currentHeadingNormed > threshold && currentHeadingNormed < 100) {
+    if (currentHeadingNormed > threshold && currentHeadingNormed < (90+threshold)) {
       // right
       val = 1;
-    } else if (currentHeadingNormed < (360-threshold) && currentHeadingNormed > 260) {
+    } else if (currentHeadingNormed < (360-threshold) && currentHeadingNormed > (270-threshold)) {
       // left
       val = -1;
-    } else {
+    } else if (currentHeadingNormed < threshold || currentHeadingNormed > (360-threshold)) {
       // center
       val = 0;
+    } else {
+      // do nothing
+      val = null;
     }
 
 
