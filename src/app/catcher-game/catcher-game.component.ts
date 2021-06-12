@@ -144,10 +144,7 @@ export class CatcherGameComponent implements OnInit, OnDestroy {
 // );
 
   }
-  private determineInitHeadingOfController(data: DeviceOrientationCompassHeading) {
-    this.initHeadingOfController = data.magneticHeading;
-    console.log("Getting initial magnetic heading of controller...", this.initHeadingOfController);
-  }
+
   private processDeviceOrientationData(data: DeviceOrientationCompassHeading): any {
     if (this.initHeadingOfController == undefined || this.initHeadingOfController <= 0) {
       this.determineInitHeadingOfController(data);
@@ -160,15 +157,26 @@ export class CatcherGameComponent implements OnInit, OnDestroy {
     }
 
   }
+
+  private determineInitHeadingOfController(data: DeviceOrientationCompassHeading) {
+    // startposition of phone (reference for center)
+    // -> after countdown: hold it pointing to the center of the screen!
+    this.initHeadingOfController = data.magneticHeading;
+    console.log("Getting initial magnetic heading of controller...", this.initHeadingOfController);
+  }
+
   private calculateOrientation(currentHeading: number): any {
     let val = 0;
     let threshold = 20;
     let diff = currentHeading - this.initHeadingOfController;
     if (diff > threshold) {
-      val = 1
+      // right
+      val = 1;
     } else if (diff < -threshold) {
-      val = -1
+      // left
+      val = -1;
     } else {
+      // center
       val = 0;
     }
     return val;
