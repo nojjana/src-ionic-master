@@ -150,7 +150,7 @@ export class CatcherGameComponent implements OnInit, OnDestroy {
       this.determineInitHeadingOfController(data);
     } else {
       let currentHeading = data.magneticHeading;
-      if (currentHeading != null && currentHeading >= 0) {
+      if (currentHeading != null && currentHeading >= 1) {
         console.log("magneticHeading:", currentHeading);
         this.socketService.emit('controllerData', [this.calculateOrientation(currentHeading)]);
       }
@@ -166,19 +166,70 @@ export class CatcherGameComponent implements OnInit, OnDestroy {
   }
 
   private calculateOrientation(currentHeading: number): any {
+
+    // TODO solve better!
+
     let val = 0;
     let threshold = 20;
-    let diff = currentHeading - this.initHeadingOfController;
-    if (diff > threshold) {
+
+    // norm currentHeading as if initHeadingOfController was 0
+    // if > 0 && < 180 --> right, if < 360 &&  > 180 --> left
+    let currentHeadingNormed = currentHeading - this.initHeadingOfController;
+    if (currentHeadingNormed > 360) {
+      currentHeadingNormed = 360 - currentHeadingNormed;
+    } else if (currentHeadingNormed < 0) {
+      currentHeadingNormed = currentHeadingNormed + 360;
+    }
+    
+    // left or right?
+    if (currentHeadingNormed > threshold && currentHeadingNormed < 100) {
       // right
       val = 1;
-    } else if (diff < -threshold) {
+    } else if (currentHeadingNormed < (360-threshold) && currentHeadingNormed > 260) {
       // left
       val = -1;
     } else {
       // center
       val = 0;
     }
+
+
+    // // initial calculation version: beachted sprung 360 zu 0 nicht...
+    // let diff = currentHeading - this.initHeadingOfController;
+    // if (diff > threshold) {
+    //   // right
+    //   val = 1;
+    // } else if (diff < -threshold) {
+    //   // left
+    //   val = -1;
+    // } else {
+    //   // center
+    //   val = 0;
+    // }
+
+
+    // // fix, other calculation version: calculate opposite degree, check if on right or left side
+    // let oppositeDegree = this.initHeadingOfController + 180;
+    // if (this.initHeadingOfController < oppositeDegree) {
+    //   // left: change 360 to 0
+    //   // right: normally increasing
+    //   if (this.initHeadingOfController < currentHeading && currentHeading < oppositeDegree) {
+    //     // moved to the right
+    //     val = 1;
+    //   } else {
+    //     val = -1;
+    //   }
+    // } else {
+    //   // left: normally decreasing
+    //   // right: change 360 to 0
+    //   if (this.initHeadingOfController > currentHeading && currentHeading > oppositeDegree) {
+    //     // moved to the left
+    //     val = -1;
+    //   } else {
+    //     val = 1;
+    //   }
+    // }
+
     return val;
   }
 
