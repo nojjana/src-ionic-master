@@ -167,8 +167,6 @@ export class CatcherGameComponent implements OnInit, OnDestroy {
 
   private calculateOrientation(currentHeading: number): any {
 
-    // TODO solve better!
-
     let val = null;
     let threshold = 20;
 
