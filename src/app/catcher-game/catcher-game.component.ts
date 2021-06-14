@@ -13,6 +13,7 @@ import { Vibration } from '@ionic-native/vibration/ngx';
   styleUrls: ['./catcher-game.component.scss'],
 })
 export class CatcherGameComponent implements OnInit, OnDestroy {
+  private controllerNumber: number;
   private sensorInterval: any;
   public tutorial = false
   public playing = false;
@@ -51,12 +52,16 @@ export class CatcherGameComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.socketService.once('controllerResponsibility', (data) => {
-      this.catchingController = data;
-      console.log('Catch Controller');
+      this.catchingController = data.tutorial;
+      console.log("Catch controller: "+this.catchingController+" / DATA: "+data.tutorial+" / NUMBER: "+data.controllerId);
 
-      this.tutorial = true;
+      this.tutorial = data.tutorial;
+
       // TODO xxx wieder löschen - tutorial wird gleich beendet fürs testing
       this.endTutorial();
+
+      this.controllerNumber = data.controllerId;
+      console.log("controller number: "+data.controllerId);
 
     });
 
