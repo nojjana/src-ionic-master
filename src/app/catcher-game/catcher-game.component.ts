@@ -106,18 +106,25 @@ export class CatcherGameComponent implements OnInit, OnDestroy {
     /* -------------------- DEV CONTROLS --------------------*/
 
     private startDevControls(): void {
-    this.sensorInterval = setInterval(() => {
-      console.log("devVal:", this.devVal);
-      this.socketService.emit('controllerData', [this.calculateGravity(this.devVal), this.controllerNumber]);
-   }, 1000 / 50)
+  //   this.sensorInterval = setInterval(() => {
+  //     console.log("devVal:", this.devVal);
+  //     this.socketService.emit('controllerData', [this.calculateGravity(this.devVal), this.controllerNumber]);
+  //  }, 1000 / 50)
   }
   
   public left(): void {
-      this.devVal += 5;
+      // this.devVal += 5;
+      this.socketService.emit('controllerData', [-1, this.controllerNumber]);
   }
 
+  public center(): void {
+    // this.devVal -= 5;
+    this.socketService.emit('controllerData', [0, this.controllerNumber]);
+}
+
   public right(): void {
-      this.devVal -= 5;
+      // this.devVal -= 5;
+      this.socketService.emit('controllerData', [1, this.controllerNumber]);
   }
 
   /* -------------------- SENSOR METHODS --------------------*/

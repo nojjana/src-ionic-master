@@ -1,7 +1,8 @@
-<!-- <button (click)="quitGame()">Abbrechen</button> -->
+<button style="margin-left: 500px;"(click)="quitGame()">Abbrechen</button>
 
 <div *ngIf="devControls && playing">
     <button style="margin-top: 20px;" (click)="left()">Links</button>
+    <button style="margin-top: 20px;" (click)="center()">Mitte</button>
     <button style="margin-top: 20px;" (click)="right()">Rechts</button>
 </div>
 
