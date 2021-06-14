@@ -108,7 +108,7 @@ export class CatcherGameComponent implements OnInit, OnDestroy {
     private startDevControls(): void {
     this.sensorInterval = setInterval(() => {
       console.log("devVal:", this.devVal);
-      this.socketService.emit('controllerData', [this.calculateGravity(this.devVal)]);
+      this.socketService.emit('controllerData', [this.calculateGravity(this.devVal), this.controllerNumber]);
    }, 1000 / 50)
   }
   
@@ -157,7 +157,7 @@ export class CatcherGameComponent implements OnInit, OnDestroy {
       let currentHeading = data.magneticHeading;
       if (currentHeading != null && currentHeading >= 1) {
         console.log("magneticHeading:", currentHeading);
-        this.socketService.emit('controllerData', [this.calculateOrientation(currentHeading)]);
+        this.socketService.emit('controllerData', [this.calculateOrientation(currentHeading), this.controllerNumber]);
       }
     }
 
@@ -260,7 +260,7 @@ export class CatcherGameComponent implements OnInit, OnDestroy {
     let val = orientation.y;
 
     if (val != null && val != 0) {
-      this.socketService.emit('controllerData', [this.calculateGravity(val)]);
+      this.socketService.emit('controllerData', [this.calculateGravity(val), this.controllerNumber]);
       console.log("orientation y", orientation.y);
     }
     // this.socketService.emit('controllerData', [orientation.y]);
