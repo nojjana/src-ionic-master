@@ -5,7 +5,7 @@
     <button style="margin-left: 100px; text-align: right;"(click)="quitGame()">Abbrechen</button> 
 </div>
 
-<img src="assets/shaker/shake-phone.gif" alt="screen" style="padding: 10px; margin-top: 40%;" *ngIf="playing">
+<img src="assets/catcher/net.png" alt="screen" style="padding: 10px; margin-top: 40%;" *ngIf="playing">
 
 
 <div *ngIf="tutorial" style="color: white; margin-top: 0px;">
@@ -13,8 +13,16 @@
     <ion-slides #slides [options]="slideOptions">
         <ion-slide style="padding: 5px;">
             <p style="font-size: 35px;">Links & Rechts</p>
-            <p>In diesem Spiel musst du dein Handy nach links und rechts bewegen.</p>
-            <img src="assets/shaker/shake-phone.gif" alt="screen" style="padding: 10px; height: 200px;">
+            <p>In diesem Spiel musst du dein Handy nach links...</p>
+            <img src="assets/catcher/turnLeft.png" alt="screen" style="padding: 10px; height: 200px;">
+            <div class="myButton" style="text-align: center;" (click)="slides.slideNext()">
+                <p style="margin: 0px;">Weiter</p>
+            </div>
+        </ion-slide>
+        <ion-slide style="padding: 5px;">
+            <p style="font-size: 35px;">Links & Rechts</p>
+            <p>... und rechts bewegen.</p>
+            <img src="assets/catcher/turnRight.png" alt="screen" style="padding: 10px; height: 200px;">
             <div class="myButton" style="text-align: center;" (click)="slides.slideNext()">
                 <p style="margin: 0px;">Weiter</p>
             </div>
@@ -22,7 +30,7 @@
         <ion-slide style="padding: 5px;">
             <p style="font-size: 35px;">Früchte auffangen</p>
             <p style="font-size: 20px;">Fangt die fallenden Früchte auf. So viele wie möglich!</p>
-            <img src="assets/shaker/screen.png" alt="screen" style="padding: 5px; height: 200px;">
+            <img src="assets/catcher/net.png" alt="screen" style="padding: 5px; height: 200px;">
             <div class="myButton" style="text-align: center;" (click)="slides.slideNext()">
                 <p style="margin: 0px;">Weiter</p>
             </div>
@@ -30,7 +38,7 @@
         <ion-slide style="padding: 5px;">
             <p style="font-size: 40px;">Aber Achtung!</p>
             <p style="font-size: 20px;">Fangt nur die Früchte, die links auf der Liste stehen!</p>
-            <img src="assets/shaker/screen.png" alt="screen" style="padding: 5px; height: 200px;">
+            <img src="assets/catcher/screen.png" alt="screen" style="padding: 5px; height: 200px;">
             <p style="font-size: 20px;">Wie viele Becher Saft schafft ihr?</p>
             <div class="myButton" style="text-align: center;" (click)="endTutorial()">
                 <p style="margin: 0px;">Los geht's!</p>
