@@ -5,7 +5,7 @@
     <button style="margin-left: 100px; text-align: right;"(click)="quitGame()">Abbrechen</button> 
 </div>
 
-<div *ngIf="playing">
+<div style="display: flex; align-items: center; justify-content: center;" *ngIf="playing">
     <img *ngIf="controllerNumber==1" src="assets/catcher/NetOrange.png" alt="Oranges Netz bewegen" style="padding: 10px; margin-top: 40%;">
     <img *ngIf="controllerNumber==2" src="assets/catcher/NetLightGreen.png" alt="Grünes Netz bewegen" style="padding: 10px; margin-top: 40%;">
     <img *ngIf="controllerNumber==undefined" src="assets/catcher/net.png" alt="Netz bewegen" style="padding: 10px; margin-top: 40%;">
@@ -35,10 +35,11 @@
             <p style="font-size: 35px;">Früchte auffangen</p>
             <p style="font-size: 20px;">Fangt die fallenden Früchte auf. So viele wie möglich!</p>
 
-            <img *ngIf="controllerNumber==1" src="assets/catcher/NetOrange.png" alt="Oranges Netz bewegen" style="padding: 5px; height: 200px;">
-            <img *ngIf="controllerNumber==2" src="assets/catcher/NetLightGreen.png" alt="Grünes Netz bewegen" style="padding: 5px; height: 200px;">
-            <img *ngIf="controllerNumber==undefined" src="assets/catcher/net.png" alt="Netz bewegen" style="padding: 5px; height: 200px;">
-            
+            <div style="display: flex; align-items: center; justify-content: center;">
+                <img *ngIf="controllerNumber==1" src="assets/catcher/NetOrange.png" alt="Oranges Netz bewegen" style="padding: 5px; height: 200px;">
+                <img *ngIf="controllerNumber==2" src="assets/catcher/NetLightGreen.png" alt="Grünes Netz bewegen" style="padding: 5px; height: 200px;">
+                <img *ngIf="controllerNumber==undefined" src="assets/catcher/net.png" alt="Netz bewegen" style="padding: 5px; height: 200px;">
+            </div>
             <div class="myButton" style="text-align: center;" (click)="slides.slideNext()">
                 <p style="margin: 0px;">Weiter</p>
             </div>
@@ -56,7 +57,7 @@
 </div>
 
 <div *ngIf="!tutorial && !playing && !played" style="color: white; text-align: center; margin-top: 100px; padding: 20px;">
-    <span>Warte</span>
+    <span>Halte dein Handy gerade zum grossen Bildschirm. Warte</span>
     <span *ngIf="dots == 3">...</span>
     <span *ngIf="dots == 2">..&nbsp;</span>
     <span *ngIf="dots == 1">.&nbsp;&nbsp;</span>
