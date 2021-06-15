@@ -231,6 +231,7 @@ export class ShakerGameComponent implements OnInit, OnDestroy {
   // }
   processData(acceleration: DeviceMotionAccelerationData) {
     // TODO shaking sensor data
+    // TODO -20?
     if(acceleration.x > 20 || acceleration.y > 20 || acceleration.z > 20){
       this.shaking = true;
       console.log('Shaking! Emitting controllerData.');
