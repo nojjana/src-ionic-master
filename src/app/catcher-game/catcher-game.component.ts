@@ -15,7 +15,7 @@ import { Vibration } from '@ionic-native/vibration/ngx';
 export class CatcherGameComponent implements OnInit, OnDestroy {
   private controllerNumber: number;
   private sensorInterval: any;
-  public tutorial = false
+  public tutorial = false;
   public playing = false;
   public countdown = false;
   public catchingController = true;
