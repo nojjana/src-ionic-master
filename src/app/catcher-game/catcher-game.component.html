@@ -1,9 +1,8 @@
-<button style="margin-left: 500px;"(click)="quitGame()">Abbrechen</button>
-
 <div *ngIf="devControls && playing">
     <button style="margin-top: 20px;" (click)="left()">Links</button>
     <button style="margin-top: 20px;" (click)="center()">Mitte</button>
     <button style="margin-top: 20px;" (click)="right()">Rechts</button>
+    <button style="margin-left: 100px; text-align: right;"(click)="quitGame()">Abbrechen</button> 
 </div>
 
 <img src="assets/shaker/shake-phone.gif" alt="screen" style="padding: 10px; margin-top: 40%;" *ngIf="playing">

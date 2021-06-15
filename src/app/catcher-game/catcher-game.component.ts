@@ -58,7 +58,7 @@ export class CatcherGameComponent implements OnInit, OnDestroy {
       this.tutorial = data.tutorial;
 
       // TODO xxx wieder löschen - tutorial wird gleich beendet fürs testing
-      this.endTutorial();
+      //this.endTutorial();
 
       this.controllerNumber = data.controllerId;
       console.log("controller number: "+data.controllerId);
@@ -333,8 +333,8 @@ export class CatcherGameComponent implements OnInit, OnDestroy {
     }
   
     public quitGame(): void {
-      console.log("ionic: quitGame() called");
-      this.controllerQuitGame = true;
+      //console.log("ionic: quitGame() called");
+      //this.controllerQuitGame = true;
       this.socketService.emit('quitGame');
     }
 
