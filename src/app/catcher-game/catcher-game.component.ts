@@ -114,7 +114,22 @@ export class CatcherGameComponent implements OnInit, OnDestroy {
   
   public left(): void {
       // this.devVal += 5;
-      this.socketService.emit('controllerData', [-1, this.controllerNumber]);
+
+      // TODO: interval, for better dev control. 
+      //when button click and hold -> keep moving
+      // use (mouseup)=left(false) to clear intervall.. or similar
+
+      // if (doMove){
+      //   this.interv = setInterval(() => {
+      //     this.name = "has been long pressed"
+      //     this.interv = null;
+      //   }, 500);
+
+        this.socketService.emit('controllerData', [-1, this.controllerNumber]);
+      // } else {
+
+      // }
+
   }
 
   public center(): void {
