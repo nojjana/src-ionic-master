@@ -78,6 +78,15 @@ export class CatcherGameComponent implements OnInit, OnDestroy {
       clearInterval(this.sensorInterval);
     });
 
+    
+    this.socketService.on('vibrate', (nrArray) => {
+      let controllerId = nrArray[0];
+      if (controllerId == this.controllerNumber) {
+        this.vibration.vibrate(100);
+        console.log("controller vibrate (sendID, setID): ", controllerId, this.controllerNumber)
+      }
+    });
+    
     this.socketService.emit('controllerReady');
 
     this.socketService.once('startSendingData', () => {
