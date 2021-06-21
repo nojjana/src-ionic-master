@@ -16,25 +16,54 @@
     <button style="margin-top: 5px;" (click)="endTutorial()">Überspringen</button>
     <ion-slides #slides [options]="slideOptions">
         <ion-slide style="padding: 5px;">
-            <p style="font-size: 35px;">Links & Rechts</p>
-            <p>In diesem Spiel musst du dein Handy nach links...</p>
-            <img src="assets/catcher/turnLeft.png" alt="Links" style="padding: 10px; height: 200px;">
+            <p style="font-size: 35px;">Handy wie Fernbedienung</p>
+            <p>Halte dein Handy wie eine Fernbedienung zum TV.</p>
+            <img src="assets/catcher/remote-control.jpg" alt="Fernbedienung" style="padding: 10px; height: 200px;">
             <div class="myButton" style="text-align: center;" (click)="slides.slideNext()">
                 <p style="margin: 0px;">Weiter</p>
             </div>
         </ion-slide>
         <ion-slide style="padding: 5px;">
-            <p style="font-size: 35px;">Links & Rechts</p>
-            <p>... und rechts halten. So bewegst du dein Netz...</p>
-            <img src="assets/catcher/turnRight.png" alt="Rechts" style="padding: 10px; height: 200px;">
+            <p style="font-size: 35px;">Links, Mitte, Rechts</p>
+            <p>Richte dein Handy schräg nach links, mittig oder schräg nach rechts aus.</p>
+            <img src="assets/catcher/pointing-directions.jpg" alt="Zeige-Richtungen Handy" style="padding: 10px; height: 200px;">
+            <div class="myButton" style="text-align: center;" (click)="slides.slideNext()">
+                <p style="margin: 0px;">Weiter</p>
+            </div>
+        </ion-slide>
+        <ion-slide style="padding: 5px;">
+            <p style="font-size: 35px;">Dein Netz bewegen</p>
+            <p>So bewegst du dein Netz nach links, in die Mitte oder nach rechts.</p>
+            <img src="assets/catcher/pointing-directions-net.jpg" alt="Zeige-Richtungen Netz" style="padding: 10px; height: 200px;">
             <div class="myButton" style="text-align: center;" (click)="slides.slideNext()">
                 <p style="margin: 0px;">Weiter</p>
             </div>
         </ion-slide>
         <ion-slide style="padding: 5px;">
             <p style="font-size: 35px;">Früchte auffangen</p>
-            <p style="font-size: 20px;">Fangt die fallenden Früchte auf. So viele wie möglich!</p>
-
+            <p style="font-size: 20px;">Fange mit deinem Netz die fallenden Früchte auf. So viele wie möglich!</p>
+            <div style="display: flex; align-items: center; justify-content: center;">
+                <img src="assets/catcher/falling-fruits.jpg" alt="Fallende Früchte" style="padding: 5px; height: 200px;">
+                <!-- <img *ngIf="controllerNumber==1" src="assets/catcher/NetOrange.png" alt="Oranges Netz bewegen" style="padding: 5px; height: 200px;">
+                <img *ngIf="controllerNumber==2" src="assets/catcher/NetLightGreen.png" alt="Grünes Netz bewegen" style="padding: 5px; height: 200px;">
+                <img *ngIf="controllerNumber==undefined" src="assets/catcher/net.png" alt="Netz bewegen" style="padding: 5px; height: 200px;"> -->
+            </div>
+            <div class="myButton" style="text-align: center;" (click)="slides.slideNext()">
+                <p style="margin: 0px;">Weiter</p>
+            </div>
+        </ion-slide>
+        <ion-slide style="padding: 5px;">
+            <p style="font-size: 40px;">Aber Achtung!</p>
+            <p style="font-size: 20px;">Fangt nur die Früchte, die auf der Liste stehen!</p>
+            <img src="assets/catcher/ingredient-list.jpg" alt="Liste" style="padding: 5px; height: 200px;">
+            <!-- <p style="font-size: 20px;">Wie viele Becher Saft schafft ihr?</p> -->
+            <div class="myButton" style="text-align: center;" (click)="slides.slideNext()">
+                <p style="margin: 0px;">Weiter</p>
+            </div>
+        </ion-slide>
+        <ion-slide style="padding: 5px;">
+            <p style="font-size: 35px;">Farbe deines Netzes</p>
+            <p>Dein Netz hat diese Farbe:</p>
             <div style="display: flex; align-items: center; justify-content: center;">
                 <img *ngIf="controllerNumber==1" src="assets/catcher/NetOrange.png" alt="Oranges Netz bewegen" style="padding: 5px; height: 200px;">
                 <img *ngIf="controllerNumber==2" src="assets/catcher/NetLightGreen.png" alt="Grünes Netz bewegen" style="padding: 5px; height: 200px;">
@@ -45,10 +74,10 @@
             </div>
         </ion-slide>
         <ion-slide style="padding: 5px;">
-            <p style="font-size: 40px;">Aber Achtung!</p>
-            <p style="font-size: 20px;">Fangt nur die Früchte, die links auf der Liste stehen!</p>
-            <img src="assets/catcher/screen.png" alt="screen" style="padding: 5px; height: 200px;">
-            <p style="font-size: 20px;">Wie viele Becher Saft schafft ihr?</p>
+            <p style="font-size: 40px;">Handy zur Mitte ausrichten</p>
+            <p style="font-size: 20px;">Halte dein Handy Richtung Mitte des TVs, bis der Countdown abgelaufen ist und das Spiel beginnt.</p>
+            <img src="assets/catcher/pointing-center.jpg" alt="Handy zur Mitte" style="padding: 5px; height: 200px;">
+            <p style="font-size: 20px;">Bereit?</p>
             <div class="myButton" style="text-align: center;" (click)="endTutorial()">
                 <p style="margin: 0px;">Los geht's!</p>
             </div>
@@ -57,11 +86,14 @@
 </div>
 
 <div *ngIf="!tutorial && !playing && !played" style="color: white; text-align: center; margin-top: 100px; padding: 20px;">
-    <span>Halte dein Handy gerade zum grossen Bildschirm. Warte</span>
-    <span *ngIf="dots == 3">...</span>
-    <span *ngIf="dots == 2">..&nbsp;</span>
-    <span *ngIf="dots == 1">.&nbsp;&nbsp;</span>
-    <span *ngIf="dots == 0">&nbsp;&nbsp;&nbsp;</span>
+    <p style="font-size: 40px;">
+        <span>Halte dein Handy mittig zum TV. Warte</span>
+        <span *ngIf="dots == 3">...</span>
+        <span *ngIf="dots == 2">..&nbsp;</span>
+        <span *ngIf="dots == 1">.&nbsp;&nbsp;</span>
+        <span *ngIf="dots == 0">&nbsp;&nbsp;&nbsp;</span>
+    </p>
+    <img src="assets/catcher/pointing-center.jpg" alt="Handy zur Mitte" style="padding: 5px; height: 200px;">
 </div>
 
 <div *ngIf="showMainMenuButton && played" class="myButton" style="margin-top: 100px; text-align: center;" (click)="goToMainMenu()">
