@@ -29,9 +29,9 @@
             </div>
         </ion-slide>
         <ion-slide style="padding: 5px;">
-            <p style="font-size: 35px;">Früchte sammeln</p>
+            <p style="font-size: 35px;">Früchte herunterschütteln</p>
             <!-- <p style="font-size: 12px; line-height: 15px;">Wenn du fest schüttelst, fallen Früchte von den Bäumen.</p> -->
-            <p style="font-size: 20px;">Wenn ihr schüttelt, fallen die Früchte. Sammelt so viele wie möglich!</p>
+            <p style="font-size: 20px;">Wenn ihr schüttelt, fallen die Früchte. Schüttelt so viele wie möglich herunter!</p>
             <img src="assets/shaker/screen.png" alt="screen" style="padding: 5px; height: 200px;">
             <div class="myButton" style="text-align: center;" (click)="slides.slideNext()">
                 <p style="margin: 0px;">Weiter</p>
@@ -42,7 +42,7 @@
             <!-- <p style="font-size: 12px; line-height: 15px;">Wenn du fest schüttelst, fallen Früchte von den Bäumen.</p> -->
             <p style="font-size: 20px;">Sammelt nur die Früchte, die links auf der Liste stehen!</p>
             <img src="assets/shaker/screen.png" alt="screen" style="padding: 5px; height: 200px;">
-            <p style="font-size: 20px;">Wie viele Becher Saft schafft ihr?</p>
+            <!-- <p style="font-size: 20px;">Wie viele Becher Saft schafft ihr?</p> -->
             <div class="myButton" style="text-align: center;" (click)="endTutorial()">
                 <p style="margin: 0px;">Los geht's!</p>
             </div>
@@ -71,7 +71,7 @@
 </div>
 
 <div *ngIf="!tutorial && !playing && !played" style="color: white; text-align: center; margin-top: 100px; padding: 20px;">
-    <span>Warte, bis alle das Tutorial abgeschlossen haben</span>
+    <span>Warte, bis alle die Spielanleitung abgeschlossen haben</span>
     <span *ngIf="dots == 3">...</span>
     <span *ngIf="dots == 2">..&nbsp;</span>
     <span *ngIf="dots == 1">.&nbsp;&nbsp;</span>
@@ -79,7 +79,7 @@
 </div>
 
 <div *ngIf="showMainMenuButton && played" class="myButton" style="margin-top: 100px; text-align: center;" (click)="goToMainMenu()">
-    <p style="margin: 0px;">Main Menu</p>
+    <p style="margin: 0px;">Hauptmenü</p>
 </div>
 
 <div *ngIf="!showMainMenuButton && played" style="color: white; text-align: center; margin-top: 100px; padding: 20px;">
