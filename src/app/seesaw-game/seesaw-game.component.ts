@@ -155,9 +155,9 @@ export class SeesawGameComponent implements OnInit, OnDestroy {
 
     
   private startSensor() {
-    // this.startAccelerometerSensor();
-    // this.startGyroOrientationSensor();
-    this.startDeviceOrientationSensor();
+    this.startAccelerometerSensor();
+  //  this.startGyroOrientationSensor();
+    // this.startDeviceOrientationSensor();
   }
   private startDeviceOrientationSensor() {
     // while (this.initHeadingOfController == undefined) {
@@ -274,7 +274,7 @@ export class SeesawGameComponent implements OnInit, OnDestroy {
   // gyro: rotation/twist of phone
   private startGyroOrientationSensor(): void {
     let options: GyroscopeOptions = {
-      frequency: 1000
+      frequency: 100
     }
 
     this.sensorInterval = setInterval(() => {
@@ -288,17 +288,24 @@ export class SeesawGameComponent implements OnInit, OnDestroy {
   }
 
   private processGyroOrientationData(orientation: GyroscopeOrientation) {
-    let val = orientation.y;
+    let val = orientation.x;
 
-    if (val != null && val != 0) {
-      this.socketService.emit('controllerData', [this.calculateGravity(val), this.controllerNumber]);
-      console.log("orientation y", orientation.y);
+    if (orientation.x > 2 || orientation.x < -2) {
+
+   // if (val != null && val != 0) {
+      this.socketService.emit('controllerData', [orientation.x, this.controllerNumber]);
+      //this.socketService.emit('controllerData', [this.calculateGravity(val), this.controllerNumber]);
+      console.log("orientation", orientation.x, orientation.y, orientation.z);
     }
     // this.socketService.emit('controllerData', [orientation.y]);
     // console.log("orientation z", orientation.z);
     // this.socketService.emit('controllerData', [orientation.z]);
   }
 
+//TODO
+  private calcuationAngle(){
+    //TODO
+  }
   
   private calculateGravity(val: number): number {
     let threshold = 20;
@@ -318,8 +325,8 @@ export class SeesawGameComponent implements OnInit, OnDestroy {
   }
 
 
-  // TODO: Accel. brauchen wir nicht mehr, wenn wir die "Zeigen-Geste" verwenden.
   // accelerometer: beschleunigung in 3 achsen
+  // doku von ionic: https://ionicframework.com/docs/native/device-motion
   private startAccelerometerSensor(): void {
     this.sensorInterval = setInterval(() => {
       this.deviceMotion.getCurrentAcceleration()
@@ -331,10 +338,11 @@ export class SeesawGameComponent implements OnInit, OnDestroy {
   }
 
   private processAccelData(acceleration: DeviceMotionAccelerationData) {
-    if (acceleration.y > 3 || acceleration.y < -3) {
+    let accelerationY = Math.round(acceleration.y);
+    if (accelerationY < 10 || accelerationY > -10) {
       if (!this.justSendedData) {
-        console.log("acceleration", acceleration.x, acceleration.y, acceleration.z);
-        this.socketService.emit('controllerData', [acceleration.y]);
+        console.log("acceleration Y", acceleration.y);
+        this.socketService.emit('controllerData', [this.calculateAngle(accelerationY), this.controllerNumber]);
         this.vibration.vibrate(100);
         this.justSendedData = true;
         setTimeout(() => {
@@ -342,6 +350,12 @@ export class SeesawGameComponent implements OnInit, OnDestroy {
         }, 500);
       }
     }
+  }
+
+  private calculateAngle(accelerationY){
+    let val = accelerationY*-9;
+    console.log("Calculation of Angle: "+val);
+    return val;
   }
 
 
