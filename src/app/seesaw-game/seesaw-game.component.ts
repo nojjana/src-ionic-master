@@ -302,10 +302,7 @@ export class SeesawGameComponent implements OnInit, OnDestroy {
     // this.socketService.emit('controllerData', [orientation.z]);
   }
 
-//TODO
-  private calcuationAngle(){
-    //TODO
-  }
+
   
   private calculateGravity(val: number): number {
     let threshold = 20;
@@ -334,30 +331,38 @@ export class SeesawGameComponent implements OnInit, OnDestroy {
           (acceleration: DeviceMotionAccelerationData) => this.processAccelData(acceleration),
           (error: any) => console.log(error)
         );
-    }, 1000 / 60);   //before: 1000/60
+    }, 1000 / 60);   
   }
 
   //round acceleration to full value to avoid .xx values
-
   private processAccelData(acceleration: DeviceMotionAccelerationData) {
-    let accelerationY = Math.round(acceleration.y);
-    if (accelerationY < 10 || accelerationY > -10) {
-      if (!this.justSendedData) {
-        console.log("acceleration Y", acceleration.y+" rounded: "+accelerationY);
-        this.socketService.emit('controllerData', [this.calculateAngle(accelerationY), this.controllerNumber]);
-        this.vibration.vibrate(100);
-        this.justSendedData = true;
-        setTimeout(() => {
-          this.justSendedData = false;
-        }, 500);
+    console.log("acceleration.y: "+acceleration.y);
+
+  //  let accelerationY = Math.floor(acceleration.y * 10000)/10000;
+
+  //  let calculatedAngle = this.calculateAngle(accelerationY);
+    this.calculateAngle(acceleration.y)
+  
+    //only send data when its in +/-90° range 
+    // if (calculatedAngle < 90 || calculatedAngle > -90) {
+    if (acceleration.y < 5 && acceleration.y > -5) {
+      //  if (!this.justSendedData) {
+          console.log("acceleration Y", acceleration.y);
+          
+          this.socketService.emit('controllerData', [acceleration.y, this.controllerNumber]);
+        //  this.vibration.vibrate(100);
+          this.justSendedData = true;
+
+/*           setTimeout(() => {
+            this.justSendedData = false;
+          }, 500); //500 */
+        //}
       }
-    }
   }
 
   private calculateAngle(accelerationY){
     let val = accelerationY*-9;
     console.log("Calculation of Angle: "+val);
-    return val;
   }
 
 
