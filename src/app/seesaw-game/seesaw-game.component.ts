@@ -334,14 +334,16 @@ export class SeesawGameComponent implements OnInit, OnDestroy {
           (acceleration: DeviceMotionAccelerationData) => this.processAccelData(acceleration),
           (error: any) => console.log(error)
         );
-    }, 1000 / 60);
+    }, 1000 / 60);   //before: 1000/60
   }
+
+  //round acceleration to full value to avoid .xx values
 
   private processAccelData(acceleration: DeviceMotionAccelerationData) {
     let accelerationY = Math.round(acceleration.y);
     if (accelerationY < 10 || accelerationY > -10) {
       if (!this.justSendedData) {
-        console.log("acceleration Y", acceleration.y);
+        console.log("acceleration Y", acceleration.y+" rounded: "+accelerationY);
         this.socketService.emit('controllerData', [this.calculateAngle(accelerationY), this.controllerNumber]);
         this.vibration.vibrate(100);
         this.justSendedData = true;
