@@ -27,16 +27,16 @@
             </div>
         </ion-slide>
         <ion-slide style="padding: 5px;">
-            <p style="font-size: 35px;">Links, Mitte, Rechts</p>
-            <p>Richte dein Handy schräg nach links, mittig oder schräg nach rechts aus.</p>
+            <p style="font-size: 35px;">Handy ausrichten</p>
+            <p>Du kannst dein Handy nach links, mittig oder rechts ausrichten.</p>
             <img src="assets/catcher/pointing-directions.jpg" alt="Zeige-Richtungen Handy" style="padding: 10px; height: 200px;">
             <div class="myButton" style="text-align: center;" (click)="slides.slideNext()">
                 <p style="margin: 0px;">Weiter</p>
             </div>
         </ion-slide>
         <ion-slide style="padding: 5px;">
-            <p style="font-size: 35px;">Dein Netz bewegen</p>
-            <p>So bewegst du dein Netz nach links, in die Mitte oder nach rechts.</p>
+            <p style="font-size: 35px;">Netz</p>
+            <p>So bewegst du dein Netz.</p>
             <img src="assets/catcher/pointing-directions-net2.jpg" alt="Zeige-Richtungen Netz" style="padding: 10px; height: 200px;">
             <div class="myButton" style="text-align: center;" (click)="slides.slideNext()">
                 <p style="margin: 0px;">Weiter</p>
@@ -44,9 +44,10 @@
         </ion-slide>
         <ion-slide style="padding: 5px;">
             <p style="font-size: 35px;">Früchte auffangen</p>
-            <p style="font-size: 20px;">Fange mit deinem Netz die fallenden Früchte auf. So viele wie möglich!</p>
+            <p style="font-size: 20px;">Fange mit deinem Netz die fallenden Früchte auf.</p>
+            <p style="font-size: 20px;">Ihr fangt gemeinsam als Team!</p>
             <div style="display: flex; align-items: center; justify-content: center;">
-                <img src="assets/catcher/falling-fruits.jpg" alt="Fallende Früchte" style="padding: 5px; height: 200px;">
+                <img src="assets/catcher/falling-fruits2.jpg" alt="Fallende Früchte" style="padding: 5px; height: 200px;">
                 <!-- <img *ngIf="controllerNumber==1" src="assets/catcher/NetOrange.png" alt="Oranges Netz bewegen" style="padding: 5px; height: 200px;">
                 <img *ngIf="controllerNumber==2" src="assets/catcher/NetLightGreen.png" alt="Grünes Netz bewegen" style="padding: 5px; height: 200px;">
                 <img *ngIf="controllerNumber==undefined" src="assets/catcher/net.png" alt="Netz bewegen" style="padding: 5px; height: 200px;"> -->
@@ -56,38 +57,38 @@
             </div>
         </ion-slide>
         <ion-slide style="padding: 5px;">
-            <p style="font-size: 35px;">Aber Achtung!</p>
+            <p style="font-size: 35px;">Achtung: Zutatenliste</p>
             <p style="font-size: 20px;">Fange nur die Früchte, die auf der Liste stehen!</p>
-            <img src="assets/catcher/ingredient-list.jpg" alt="Liste" style="padding: 5px; height: 200px;">
+            <img src="assets/catcher/ingredient-list2.jpg" alt="Liste" style="padding: 5px; height: 200px;">
             <!-- <p style="font-size: 20px;">Wie viele Becher Saft schafft ihr?</p> -->
             <div class="myButton" style="text-align: center;" (click)="slides.slideNext()">
                 <p style="margin: 0px;">Weiter</p>
             </div>
         </ion-slide>
         <ion-slide style="padding: 5px;">
-            <p style="font-size: 35px;">Farbe deines Netzes</p>
+            <p style="font-size: 35px;">Netzfarbe</p>
             <p>Dein Netz hat diese Farbe:</p>
             <div style="display: flex; align-items: center; justify-content: center">
                 <img *ngIf="controllerNumber==1" src="assets/catcher/NetOrange.png" alt="Oranges Netz bewegen" style="padding: 5px; height: 200px;">
                 <img *ngIf="controllerNumber==2" src="assets/catcher/NetLightGreen.png" alt="Grünes Netz bewegen" style="padding: 5px; height: 200px;">
                 <img *ngIf="controllerNumber==undefined" src="assets/catcher/net.png" alt="Netz bewegen" style="padding: 5px; height: 200px;">
             </div>
-            <p style="font-size: 20px;">Ihr spielt gemeinsam als Team!</p>
+            <!-- <p style="font-size: 20px;">Ihr spielt gemeinsam als Team!</p> -->
             <div class="myButton" style="text-align: center;" (click)="slides.slideNext()">
                 <p style="margin: 0px;">Weiter</p>
             </div>
         </ion-slide>
         <ion-slide style="padding: 5px;">
-            <p style="font-size: 40px;">Handy zur Mitte ausrichten</p>
+            <p style="font-size: 40px;">Handy zur Mitte</p>
             <p style="font-size: 20px;">Halte dein Handy Richtung Mitte des TVs, bis der Countdown abgelaufen ist und das Spiel beginnt.</p>
             <img src="assets/catcher/pointing-center.jpg" alt="Handy zur Mitte" style="padding: 5px; height: 200px;">
-            <p style="font-size: 20px;">Bereit?</p>
+            <!-- <p style="font-size: 20px;">Bereit?</p> -->
             <div class="myButton" style="text-align: center;" (click)="endTutorial()">
-                <p style="margin: 0px;">Los geht's!</p>
+                <p style="margin: 0px;">Bin bereit!</p>
             </div>
         </ion-slide>   
     </ion-slides>
-    <button style="position:absolute; margin-left: 150px; text-align: center; font-size: 28px; padding: 5px" (click)="endTutorial()">
+    <button style="position:absolute; margin-left: 150px; text-align: center; font-size: 28px; padding: 5px; margin-top: 40px;" (click)="endTutorial()">
         Überspringen
     </button>
 </div>

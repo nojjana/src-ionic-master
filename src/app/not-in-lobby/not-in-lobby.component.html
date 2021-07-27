@@ -1,14 +1,14 @@
 <div *ngIf="!socketService.isConnected()" style="padding-top: 100px">
-    <div id="connecting-box">
-        <div style="margin-top: 50px">
-            <span>Verbindet</span>
-            <span *ngIf="dots == 3">...</span>
-            <span *ngIf="dots == 2">..&nbsp;</span>
-            <span *ngIf="dots == 1">.&nbsp;&nbsp;</span>
-            <span *ngIf="dots == 0">&nbsp;&nbsp;&nbsp;</span>
-        </div>
-    </div>
+  <div id="connecting-box">
+      <div style="margin-top: 50px">
+          <span>Verbindet</span>
+          <span *ngIf="dots == 3">...</span>
+          <span *ngIf="dots == 2">..&nbsp;</span>
+          <span *ngIf="dots == 1">.&nbsp;&nbsp;</span>
+          <span *ngIf="dots == 0">&nbsp;&nbsp;&nbsp;</span>
+      </div>
   </div>
+</div>
   <div *ngIf="socketService.isConnected()" style="width: 100%;">
     <div style="width: 200px; text-align: center; margin: 100px auto auto;">
       <input class="game-code-input" placeholder="Game Code" #joinLobbyCode autofocus type="number">
