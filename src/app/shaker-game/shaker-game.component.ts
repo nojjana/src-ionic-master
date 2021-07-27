@@ -46,8 +46,9 @@ export class ShakerGameComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.socketService.once('controllerResponsibility', (data) => {
-      this.moving = data;  // true move, false hit
-      
+      // this.moving = data;  // true move, false hit
+      this.moving = false;  // true move, false hit
+
       console.log('Shake Controller');
 
       // if(this.moving){
