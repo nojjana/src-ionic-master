@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ɵɵNgOnChangesFeature } from '@angular/core';
 import { DeviceMotion, DeviceMotionAccelerationData } from '@ionic-native/device-motion/ngx';
 import { SocketService } from '../socket-service/socket.service';
 import { Gyroscope, GyroscopeOptions, GyroscopeOrientation } from '@ionic-native/gyroscope/ngx';
@@ -35,6 +35,7 @@ export class SeesawGameComponent implements OnInit, OnDestroy {
   justSendedData: any;
   private devVal: number = 0;
   initHeadingOfController: number;
+  private seesawAngle: any;
 
   constructor(private socketService: SocketService, private gyroscope: Gyroscope,
     private deviceMotion: DeviceMotion, private deviceOrientation: DeviceOrientation, 
@@ -337,15 +338,34 @@ export class SeesawGameComponent implements OnInit, OnDestroy {
   //round acceleration to full value to avoid .xx values
   private processAccelData(acceleration: DeviceMotionAccelerationData) {
     console.log("acceleration.y: "+acceleration.y);
+  //  let seesawAngle;
 
   //  let accelerationY = Math.floor(acceleration.y * 10000)/10000;
 
   //  let calculatedAngle = this.calculateAngle(accelerationY);
     this.calculateAngle(acceleration.y)
   
-    //only send data when its in +/-90° range 
-    // if (calculatedAngle < 90 || calculatedAngle > -90) {
-    if (acceleration.y < 5 && acceleration.y > -5) {
+    //TODO: SWITCH CASE
+    // rechts -> > 1 
+    if (acceleration.y >= 1 && this.seesawAngle != 0.27){
+      this.seesawAngle = 0.27 // 4.0 
+      this.socketService.emit('controllerData', [this.seesawAngle, this.controllerNumber]);
+      console.log("Sended seesawAngle (plus):" + this.seesawAngle);
+    } 
+    // links -> >-1
+    else if (acceleration.y <= -1 && this.seesawAngle != 0.27){
+      this.seesawAngle = -0.27 //-4.0 
+      this.socketService.emit('controllerData', [this.seesawAngle, this.controllerNumber]);
+      console.log("Sended seesawAngle (minus):" + this.seesawAngle);
+    } 
+    // center when between 1 and -1
+    else if (acceleration.y < 1 && acceleration.y > -1 && this.seesawAngle != 0){
+      this.seesawAngle = 0 
+      this.socketService.emit('controllerData', [this.seesawAngle, this.controllerNumber]);
+      console.log("Sended seesawAngle (zero)): " + this.seesawAngle);
+    }
+
+    /* if (acceleration.y < 5 && acceleration.y > -5) {
       //  if (!this.justSendedData) {
           console.log("acceleration Y", acceleration.y);
           
@@ -357,12 +377,12 @@ export class SeesawGameComponent implements OnInit, OnDestroy {
             this.justSendedData = false;
           }, 500); //500 */
         //}
-      }
+     // } 
   }
 
   private calculateAngle(accelerationY){
     let val = accelerationY*-9;
-    console.log("Calculation of Angle: "+val);
+    //console.log("Calculation of Angle: "+val);
   }
 
 
