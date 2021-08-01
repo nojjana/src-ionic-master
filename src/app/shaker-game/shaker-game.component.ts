@@ -27,7 +27,7 @@ export class ShakerGameComponent implements OnInit, OnDestroy {
   public slideOptions = {
     allowTouchMove: false
   }
-  controllerQuitGame = false;
+  // controllerQuitGame = false;
 
   constructor( private socketService: SocketService, private gyroscope: Gyroscope, 
     private deviceMotion: DeviceMotion, private platform: Platform, private vibration: Vibration) { 

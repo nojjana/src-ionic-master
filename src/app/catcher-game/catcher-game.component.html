@@ -16,6 +16,17 @@
     </div>
 </div>
 
+<div *ngIf="!tutorial && !playing && !played" style="color: white; text-align: center; margin-top: 100px; padding: 20px;">
+  <p style="font-size: 40px;">
+      <span>Halte dein Handy mittig zum TV. Warte</span>
+      <span *ngIf="dots == 3">...</span>
+      <span *ngIf="dots == 2">..&nbsp;</span>
+      <span *ngIf="dots == 1">.&nbsp;&nbsp;</span>
+      <span *ngIf="dots == 0">&nbsp;&nbsp;&nbsp;</span>
+  </p>
+  <img src="assets/catcher/pointing-center.jpg" alt="Handy zur Mitte" style="padding: 5px; height: 200px;">
+</div>
+
 <div *ngIf="tutorial" style="color: white; margin-top: 0px;">
     <ion-slides #slides [options]="slideOptions">
         <ion-slide style="padding: 5px;">
@@ -91,17 +102,6 @@
     <button style="position:absolute; margin-left: 150px; text-align: center; font-size: 28px; padding: 5px; margin-top: 40px;" (click)="endTutorial()">
         Überspringen
     </button>
-</div>
-
-<div *ngIf="!tutorial && !playing && !played" style="color: white; text-align: center; margin-top: 100px; padding: 20px;">
-    <p style="font-size: 40px;">
-        <span>Halte dein Handy mittig zum TV. Warte</span>
-        <span *ngIf="dots == 3">...</span>
-        <span *ngIf="dots == 2">..&nbsp;</span>
-        <span *ngIf="dots == 1">.&nbsp;&nbsp;</span>
-        <span *ngIf="dots == 0">&nbsp;&nbsp;&nbsp;</span>
-    </p>
-    <img src="assets/catcher/pointing-center.jpg" alt="Handy zur Mitte" style="padding: 5px; height: 200px;">
 </div>
 
 <div *ngIf="showMainMenuButton && played" class="myButton" style="margin-top: 100px; text-align: center;" (click)="goToMainMenu()">

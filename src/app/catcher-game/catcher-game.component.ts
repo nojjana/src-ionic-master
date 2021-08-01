@@ -28,7 +28,7 @@ export class CatcherGameComponent implements OnInit, OnDestroy {
   public slideOptions = {
     allowTouchMove: false
   }
-  controllerQuitGame = false;
+  // controllerQuitGame = false;
   currentOX = 0;
   currentOY = 0;
   currentOZ = 0;
