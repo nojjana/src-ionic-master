@@ -14,6 +14,7 @@
   <div style="display: flex; align-items: center; justify-content: center; height: 100%; background-color: #4CAF50"
     *ngIf="controllerNumber==2">
   </div>
+    
 </div>
 
 
@@ -109,6 +110,7 @@
 <div *ngIf="!tutorial && !playing && !played" style="color: white; text-align: center; margin-top: 100px; padding: 20px;">
     <p style="font-size: 40px;">
         <span>Halte dein Handy quer und horizontal zum TV. Warte</span>
+
         <span *ngIf="dots == 3">...</span>
         <span *ngIf="dots == 2">..&nbsp;</span>
         <span *ngIf="dots == 1">.&nbsp;&nbsp;</span>
