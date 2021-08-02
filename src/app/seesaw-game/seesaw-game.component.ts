@@ -347,19 +347,19 @@ export class SeesawGameComponent implements OnInit, OnDestroy {
   
     //TODO: SWITCH CASE
     // rechts -> > 1 
-    if (acceleration.y >= 1 && this.seesawAngle != 0.5){
-      this.seesawAngle = 0.5 // 4.0 
+    if (acceleration.y >= 3 && this.seesawAngle != 0.6){
+      this.seesawAngle = 0.6 // 4.0 
       this.socketService.emit('controllerData', [this.seesawAngle, this.controllerNumber]);
       console.log("Sended seesawAngle (plus):" + this.seesawAngle);
     } 
     // links -> >-1
-    else if (acceleration.y <= -1 && this.seesawAngle != -0.5){
-      this.seesawAngle = -0.5 //-4.0 
+    else if (acceleration.y <= -3 && this.seesawAngle != -0.5){
+      this.seesawAngle = -0.6 //-4.0 
       this.socketService.emit('controllerData', [this.seesawAngle, this.controllerNumber]);
       console.log("Sended seesawAngle (minus):" + this.seesawAngle);
     } 
     // center when between 1 and -1
-    else if (acceleration.y < 1 && acceleration.y > -1 && this.seesawAngle != 0){
+    else if (acceleration.y < 3 && acceleration.y > -3 && this.seesawAngle != 0){
       this.seesawAngle = 0 
       this.socketService.emit('controllerData', [this.seesawAngle, this.controllerNumber]);
       console.log("Sended seesawAngle (zero)): " + this.seesawAngle);
