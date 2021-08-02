@@ -1,0 +1,33 @@
+ion-slides {
+    --bullet-background: blue;
+    --bullet-background-active: darkblue;
+}
+
+ion-slides {
+    height: 100%;
+  }
+
+  p {
+    font-size: 25px;
+  }
+
+  .swiper-slide {
+    display: block;
+  }
+
+  .swiper-slide h2 {
+    margin-top: 2.8rem;
+  }
+
+  .myButton {
+    color: white;
+    width: 196px;
+    height: 40px;
+    border: 3px dashed white;
+    line-height: 40px;
+    margin: auto
+  }
+
+  #point{
+      transition: .3s ease-in-out;
+  }

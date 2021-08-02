@@ -3,7 +3,8 @@
     <name>SRC</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework.com" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content src="index.html" />
+    <!-- <content src="index.html" /> -->
+    <content original-src="http://localhost:8100" src="http://localhost:8100" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -114,4 +115,5 @@
     <plugin name="cordova-plugin-vibration" spec="^3.1.1" />
     <engine name="android" spec="7.1.4" />
     <allow-navigation href="http://localhost:8100" sessionid="3d17b553" />
+    <allow-navigation href="http://localhost:8101" sessionid="7355f7dc" />
 </widget>
