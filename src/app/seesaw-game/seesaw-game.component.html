@@ -1,0 +1,131 @@
+<div *ngIf="devControls && playing">
+    <button style="margin-top: 20px;" (click)="left()">Links</button>
+    <button style="margin-top: 20px;" (click)="center()">Mitte</button>
+    <button style="margin-top: 20px;" (click)="right()">Rechts</button>
+</div>
+
+<button *ngIf="devControls || controllerNumber==1" style="margin-left: 200px; text-align: right;"
+(click)="quitGame()">Abbrechen</button>
+
+<div style="display: flex; align-items: center; justify-content: center;" *ngIf="playing">
+    <div style="display: flex; align-items: center; justify-content: center; background-color: #F38C2C"
+    *ngIf="controllerNumber==1">
+  </div>
+  <div style="display: flex; align-items: center; justify-content: center; height: 100%; background-color: #4CAF50"
+    *ngIf="controllerNumber==2">
+  </div>
+</div>
+
+
+<div *ngIf="tutorial" style="color: white; margin-top: 0px;">
+    <ion-slides #slides [options]="slideOptions">
+      <ion-slide>
+        <p style="font-size: 35px;">Handy wie eine Wippe</p>
+        <p>Halte dein Handy wie eine Wippe vor dich hin.</p>
+        <img src="assets/seesaw/wippe.png" alt="Wippe">
+        <div class="myButton nextButton" (click)="slides.slideNext()">
+          <p>Weiter &#8594;</p>
+        </div>
+      </ion-slide>
+      <ion-slide>
+        <p style="font-size: 35px;">Handy-Startknopf rechts .</p>
+        <p>Der Handy-Startknopf muss nach rechts zeigen.</p>
+        <img src="assets/seesaw/smartphone-rechts.gif" alt="Startknopf rechts">
+        <div class="myButton nextButton" (click)="slides.slideNext()">
+          <p>Weiter &#8594;</p>
+        </div>
+      </ion-slide>
+      <ion-slide>
+        <p style="font-size: 35px;">Handy nach rechts und links kippen</p>
+        <p>Wie bei einer Wippe kippst du das Handy nach rechts und links.</p>
+        <img src="assets/seesaw/smartphone-kippen.gif" alt="ippen hid und her">
+        <div class="myButton nextButton" (click)="slides.slideNext()">
+          <p>Weiter &#8594;</p>
+        </div>
+      </ion-slide>
+      <ion-slide>
+        <p style="font-size: 35px;">Früchte sortieren</p>
+        <p>
+          Wippe die guten Früchte in den Mixer.
+          Ihr spielt als Team!
+        </p>
+        <div style="display: flex; align-items: center; justify-content: center;">
+          <img src="assets/seesaw/gute_fruechte.gif" alt="Fallende Früchte" style="height: 240px;">
+        </div>
+        <div class="myButton nextButton" (click)="slides.slideNext()">
+          <p>Weiter &#8594;</p>
+        </div>
+      </ion-slide>
+      <ion-slide>
+        <p style="font-size: 35px;">Achtung: Zutatenliste</p>
+        <p>Fange nur die Früchte, die auf der Liste stehen!</p>
+        <img src="assets/seesaw/ingredient-list.jpg" alt="Liste">
+        <div class="myButton nextButton" (click)="slides.slideNext()">
+          <p>Weiter &#8594;</p>
+        </div>
+      </ion-slide>
+      <ion-slide>
+        <p style="font-size: 35px;">Schlechte Früchte in den Müll</p>
+        <p>Kippe die schlechten Früchte in den Mülleimer.</p>
+        <img src="assets/seesaw/muell.gif" alt="Muell">
+        <div class="myButton nextButton" (click)="slides.slideNext()">
+          <p>Weiter &#8594;</p>
+        </div>
+      </ion-slide>
+      <ion-slide>
+        <p style="font-size: 35px;">Wippenfarbe</p>
+        <p>Deine Wippe hat diese Farbe:</p>
+        <div style="background-color: #F38C2C"
+        *ngIf="controllerNumber==1">
+        </div>
+        <div style="background-color: #4CAF50"
+        *ngIf="controllerNumber==2">
+        </div>  
+        <div style="background-color: #5a5a59"
+        *ngIf="controllerNumber==undefined">
+        </div>    
+        <div class="myButton nextButton" (click)="slides.slideNext()">
+          <p>Weiter &#8594;</p>
+        </div>
+      </ion-slide>
+      <ion-slide>
+        <p style="font-size: 35px;">Handy bereit?</p>
+        <p>Halte dein Handy bereit, bis der Countdown abgelaufen ist und das
+          Spiel beginnt.</p>
+        <img src="assets/catcher/pointing-center.jpg" alt="Handy zur Mitte">
+        <div class="myButton nextButton" (click)="endTutorial()">
+          <p>Bin bereit!</p>
+        </div>
+      </ion-slide>
+      <!-- <div class="myButton nextButton" (click)="slides.slideNext()">
+        <p>Weiter &#8594;</p>
+      </div> -->
+    </ion-slides>
+    <div class="myButton nextButton skipButton" (click)="endTutorial()">
+      <p>Überspringen &#8677;</p>
+    </div>
+  </div>
+
+<div *ngIf="!tutorial && !playing && !played" style="color: white; text-align: center; margin-top: 100px; padding: 20px;">
+    <p style="font-size: 40px;">
+        <span>Halte dein Handy quer und horizontal zum TV. Warte</span>
+        <span *ngIf="dots == 3">...</span>
+        <span *ngIf="dots == 2">..&nbsp;</span>
+        <span *ngIf="dots == 1">.&nbsp;&nbsp;</span>
+        <span *ngIf="dots == 0">&nbsp;&nbsp;&nbsp;</span>
+    </p>
+    <img src="assets/seesaw/wipping.gif" alt="Handy Horizontal" style="padding: 5px; height: 200px;">
+</div>
+
+<div *ngIf="showMainMenuButton && played" class="myButton" style="margin-top: 100px; text-align: center;" (click)="goToMainMenu()">
+    <p style="margin: 0px;">Hauptmenü</p>
+</div>
+
+<div *ngIf="!showMainMenuButton && played" style="color: white; text-align: center; margin-top: 100px; padding: 20px;">
+    <span>Warte, bis der Spielleiter zum Hauptmenü gewechselt hat</span>
+    <span *ngIf="dots == 3">...</span>
+    <span *ngIf="dots == 2">..&nbsp;</span>
+    <span *ngIf="dots == 1">.&nbsp;&nbsp;</span>
+    <span *ngIf="dots == 0">&nbsp;&nbsp;&nbsp;</span>
+</div>
+
