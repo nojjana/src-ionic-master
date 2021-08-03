@@ -108,6 +108,7 @@ export class SeesawGameComponent implements OnInit, OnDestroy {
     this.socketService.removeListener('controllerResponsibility');
     this.socketService.removeListener('stopSendingData');
     this.socketService.removeListener('startSendingData');
+    this.socketService.removeListener('vibrate');  //TODO add also in other games
     clearInterval(this.dotInterval);
   }
 
@@ -160,76 +161,77 @@ export class SeesawGameComponent implements OnInit, OnDestroy {
   //  this.startGyroOrientationSensor();
     // this.startDeviceOrientationSensor();
   }
-  private startDeviceOrientationSensor() {
-    // while (this.initHeadingOfController == undefined) {
-    //   console.log("Getting initial magneticHeading heading of controller...", this.initHeadingOfController);
-    //   this.determineInitHeadingOfController();
-    // }
-    // console.log("initHeadingOfController:", this.initHeadingOfController);
-    this.sensorInterval = setInterval(() => {
-    // Get the device current compass heading
-    this.deviceOrientation.getCurrentHeading()
-    .then(
-      (data: DeviceOrientationCompassHeading) => this.processDeviceOrientationData(data),
-      (error: any) => console.log(error)
-    );
-    }, 1000 / 50);
+
+  // private startDeviceOrientationSensor() {
+  //   // while (this.initHeadingOfController == undefined) {
+  //   //   console.log("Getting initial magneticHeading heading of controller...", this.initHeadingOfController);
+  //   //   this.determineInitHeadingOfController();
+  //   // }
+  //   // console.log("initHeadingOfController:", this.initHeadingOfController);
+  //   this.sensorInterval = setInterval(() => {
+  //   // Get the device current compass heading
+  //   this.deviceOrientation.getCurrentHeading()
+  //   .then(
+  //     (data: DeviceOrientationCompassHeading) => this.processDeviceOrientationData(data),
+  //     (error: any) => console.log(error)
+  //   );
+  //   }, 1000 / 50);
 
     // Watch the device compass heading change
 // var subscription = this.deviceOrientation.watchHeading().subscribe(
 //   (data: DeviceOrientationCompassHeading) => console.log(data)
 // );
 
-  }
+  // }
 
-  private processDeviceOrientationData(data: DeviceOrientationCompassHeading): any {
-    if (this.initHeadingOfController == undefined || this.initHeadingOfController <= 0) {
-      this.determineInitHeadingOfController(data);
-    } else {
-      let currentHeading = data.magneticHeading;
-      if (currentHeading != null && currentHeading >= 1) {
-        console.log("magneticHeading:", currentHeading);
-        this.socketService.emit('controllerData', [this.calculateOrientation(currentHeading), this.controllerNumber]);
-      }
-    }
+  // private processDeviceOrientationData(data: DeviceOrientationCompassHeading): any {
+  //   if (this.initHeadingOfController == undefined || this.initHeadingOfController <= 0) {
+  //     this.determineInitHeadingOfController(data);
+  //   } else {
+  //     let currentHeading = data.magneticHeading;
+  //     if (currentHeading != null && currentHeading >= 1) {
+  //       console.log("magneticHeading:", currentHeading);
+  //       this.socketService.emit('controllerData', [this.calculateOrientation(currentHeading), this.controllerNumber]);
+  //     }
+  //   }
 
-  }
+  // }
 
-  private determineInitHeadingOfController(data: DeviceOrientationCompassHeading) {
-    // startposition of phone (reference for center)
-    // -> after countdown: hold it pointing to the center of the screen!
-    this.initHeadingOfController = data.magneticHeading;
-    console.log("Getting initial magneticHeading of controller...", this.initHeadingOfController);
-  }
+  // private determineInitHeadingOfController(data: DeviceOrientationCompassHeading) {
+  //   // startposition of phone (reference for center)
+  //   // -> after countdown: hold it pointing to the center of the screen!
+  //   this.initHeadingOfController = data.magneticHeading;
+  //   console.log("Getting initial magneticHeading of controller...", this.initHeadingOfController);
+  // }
 
-  private calculateOrientation(currentHeading: number): any {
+  // private calculateOrientation(currentHeading: number): any {
 
-    let val = null;
-    let threshold = 20;
+  //   let val = null;
+  //   let threshold = 20;
 
-    // norm currentHeading as if initHeadingOfController was 0
-    // if > 0 && < 180 --> right, if < 360 &&  > 180 --> left
-    let currentHeadingNormed = currentHeading - this.initHeadingOfController;
-    if (currentHeadingNormed > 360) {
-      currentHeadingNormed = 360 - currentHeadingNormed;
-    } else if (currentHeadingNormed < 0) {
-      currentHeadingNormed = currentHeadingNormed + 360;
-    }
+  //   // norm currentHeading as if initHeadingOfController was 0
+  //   // if > 0 && < 180 --> right, if < 360 &&  > 180 --> left
+  //   let currentHeadingNormed = currentHeading - this.initHeadingOfController;
+  //   if (currentHeadingNormed > 360) {
+  //     currentHeadingNormed = 360 - currentHeadingNormed;
+  //   } else if (currentHeadingNormed < 0) {
+  //     currentHeadingNormed = currentHeadingNormed + 360;
+  //   }
     
-    // left or right?
-    if (currentHeadingNormed > threshold && currentHeadingNormed < (90+threshold)) {
-      // right
-      val = 1;
-    } else if (currentHeadingNormed < (360-threshold) && currentHeadingNormed > (270-threshold)) {
-      // left
-      val = -1;
-    } else if (currentHeadingNormed < threshold || currentHeadingNormed > (360-threshold)) {
-      // center
-      val = 0;
-    } else {
-      // do nothing
-      val = null;
-    }
+  //   // left or right?
+  //   if (currentHeadingNormed > threshold && currentHeadingNormed < (90+threshold)) {
+  //     // right
+  //     val = 1;
+  //   } else if (currentHeadingNormed < (360-threshold) && currentHeadingNormed > (270-threshold)) {
+  //     // left
+  //     val = -1;
+  //   } else if (currentHeadingNormed < threshold || currentHeadingNormed > (360-threshold)) {
+  //     // center
+  //     val = 0;
+  //   } else {
+  //     // do nothing
+  //     val = null;
+  //   }
 
 
     // // initial calculation version: beachted sprung 360 zu 0 nicht...
@@ -268,59 +270,59 @@ export class SeesawGameComponent implements OnInit, OnDestroy {
     //   }
     // }
 
-    return val;
-  }
+  //   return val;
+  // }
 
 
   // gyro: rotation/twist of phone
-  private startGyroOrientationSensor(): void {
-    let options: GyroscopeOptions = {
-      frequency: 100
-    }
+  // private startGyroOrientationSensor(): void {
+  //   let options: GyroscopeOptions = {
+  //     frequency: 100
+  //   }
 
-    this.sensorInterval = setInterval(() => {
-      this.gyroscope.getCurrent(options)
-        .then(
-          (orientation: GyroscopeOrientation) => {
-            this.processGyroOrientationData(orientation);
-          })
-        .catch()
-    }, 1000 / 50);
-  }
+  //   this.sensorInterval = setInterval(() => {
+  //     this.gyroscope.getCurrent(options)
+  //       .then(
+  //         (orientation: GyroscopeOrientation) => {
+  //           this.processGyroOrientationData(orientation);
+  //         })
+  //       .catch()
+  //   }, 1000 / 50);
+  // }
 
-  private processGyroOrientationData(orientation: GyroscopeOrientation) {
-    let val = orientation.x;
+  // private processGyroOrientationData(orientation: GyroscopeOrientation) {
+  //   let val = orientation.x;
 
-    if (orientation.x > 2 || orientation.x < -2) {
+  //   if (orientation.x > 2 || orientation.x < -2) {
 
-   // if (val != null && val != 0) {
-      this.socketService.emit('controllerData', [orientation.x, this.controllerNumber]);
-      //this.socketService.emit('controllerData', [this.calculateGravity(val), this.controllerNumber]);
-      console.log("orientation", orientation.x, orientation.y, orientation.z);
-    }
-    // this.socketService.emit('controllerData', [orientation.y]);
-    // console.log("orientation z", orientation.z);
-    // this.socketService.emit('controllerData', [orientation.z]);
-  }
+  //  // if (val != null && val != 0) {
+  //     this.socketService.emit('controllerData', [orientation.x, this.controllerNumber]);
+  //     //this.socketService.emit('controllerData', [this.calculateGravity(val), this.controllerNumber]);
+  //     console.log("orientation", orientation.x, orientation.y, orientation.z);
+  //   }
+  //   // this.socketService.emit('controllerData', [orientation.y]);
+  //   // console.log("orientation z", orientation.z);
+  //   // this.socketService.emit('controllerData', [orientation.z]);
+  // }
 
 
   
-  private calculateGravity(val: number): number {
-    let threshold = 20;
+  // private calculateGravity(val: number): number {
+  //   let threshold = 20;
 
-    threshold = 10;
-    val = -val;
+  //   threshold = 10;
+  //   val = -val;
   
-    if(val > threshold){
-      val = 1;
-    } else if(val < -threshold){
-      val = -1;
-    } else {
-      val = 1 / threshold * val;
-    }
+  //   if(val > threshold){
+  //     val = 1;
+  //   } else if(val < -threshold){
+  //     val = -1;
+  //   } else {
+  //     val = 1 / threshold * val;
+  //   }
 
-    return val;
-  }
+  //   return val;
+  // }
 
 
   // accelerometer: beschleunigung in 3 achsen

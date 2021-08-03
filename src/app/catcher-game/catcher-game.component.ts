@@ -107,6 +107,7 @@ export class CatcherGameComponent implements OnInit, OnDestroy {
     this.socketService.removeListener('controllerResponsibility');
     this.socketService.removeListener('stopSendingData');
     this.socketService.removeListener('startSendingData');
+    this.socketService.removeListener('vibrate');  //TODO add also in other games
     clearInterval(this.dotInterval);
   }
 
