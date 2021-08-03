@@ -136,7 +136,7 @@ export class SeesawGameComponent implements OnInit, OnDestroy {
       //     this.interv = null;
       //   }, 500);
 
-        this.socketService.emit('controllerData', [-1, this.controllerNumber]);
+        this.socketService.emit('controllerData', [-0.4, this.controllerNumber]);
       // } else {
 
       // }
@@ -150,7 +150,7 @@ export class SeesawGameComponent implements OnInit, OnDestroy {
 
   public right(): void {
       // this.devVal -= 5;
-      this.socketService.emit('controllerData', [1, this.controllerNumber]);
+      this.socketService.emit('controllerData', [0.4, this.controllerNumber]);
   }
 
   /* -------------------- SENSOR METHODS --------------------*/

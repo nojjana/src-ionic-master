@@ -39,7 +39,7 @@
       <ion-slide>
         <p style="font-size: 35px;">Handy nach rechts und links kippen</p>
         <p>Wie bei einer Wippe kippst du das Handy nach rechts und links.</p>
-        <img src="assets/seesaw/smartphone-kippen.gif" alt="ippen hid und her">
+        <img src="assets/seesaw/smartphone-kippen.gif" alt="wippen hid und her">
         <div class="myButton nextButton" (click)="slides.slideNext()">
           <p>Weiter &#8594;</p>
         </div>
@@ -76,15 +76,11 @@
       <ion-slide>
         <p style="font-size: 35px;">Wippenfarbe</p>
         <p>Deine Wippe hat diese Farbe:</p>
-        <div style="background-color: #F38C2C"
-        *ngIf="controllerNumber==1">
+        <div style="display: flex; align-items: center; justify-content: center">
+          <img *ngIf="controllerNumber==1" src="assets/seesaw/seesaw-orange.gif" alt="Orange Wippe bewegen">
+          <img *ngIf="controllerNumber==2" src="assets/seesaw/seesaw-green.gif" alt="Grüne Wippe bewegen">
+          <img *ngIf="controllerNumber==undefined" src="assets/seesaw/wippe.png" alt="Wippe bewegen">
         </div>
-        <div style="background-color: #4CAF50"
-        *ngIf="controllerNumber==2">
-        </div>  
-        <div style="background-color: #5a5a59"
-        *ngIf="controllerNumber==undefined">
-        </div>    
         <div class="myButton nextButton" (click)="slides.slideNext()">
           <p>Weiter &#8594;</p>
         </div>
@@ -93,7 +89,7 @@
         <p style="font-size: 35px;">Handy bereit?</p>
         <p>Halte dein Handy bereit, bis der Countdown abgelaufen ist und das
           Spiel beginnt.</p>
-        <img src="assets/catcher/pointing-center.jpg" alt="Handy zur Mitte">
+        <img src="assets/seesaw/smartphone-start.png" alt="Handy zur Mitte">
         <div class="myButton nextButton" (click)="endTutorial()">
           <p>Bin bereit!</p>
         </div>
