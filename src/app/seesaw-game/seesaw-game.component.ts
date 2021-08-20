@@ -96,8 +96,6 @@ export class SeesawGameComponent implements OnInit, OnDestroy {
     clearInterval(this.dotInterval);
   }
 
-
-
     /* -------------------- DEV CONTROLS --------------------*/
   
   public left(): void {
@@ -114,7 +112,6 @@ export class SeesawGameComponent implements OnInit, OnDestroy {
 
   /* -------------------- SENSOR METHODS --------------------*/
 
-    
   private startSensor() {
     this.startAccelerometerSensor();
   }

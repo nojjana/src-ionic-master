@@ -1,18 +1,9 @@
-<!-- <div *ngIf="playing && moving && devControls">
-    <button (click)="left()">Links</button>
-    <button (click)="right()">Rechts</button>
-    <button (click)="up()">Hoch</button>
-    <button (click)="down()">Runter</button>
-</div> -->
 <div *ngIf="playing">
     <div *ngIf="devControls">
-        <!-- <button (click)="hit()">Hit</button> -->
         <button style="margin-top: 20px;" (click)="shake()">Schütteln</button>
-        <!-- <button style="text-align: right;"(click)="quitGame()">Abbrechen</button>  -->
     </div>
+
     <button style="text-align: right;" (click)="quitGame()">Abbrechen</button>
-    <!-- <button *ngIf="devControls || controllerNumber==1" style="margin-left: 200px; text-align: right;"(click)="quitGame()">Abbrechen</button>  -->
-    <!-- <img src="assets/shaker/move.png" alt="screen" style="padding: 10px; margin-top: 60%;" *ngIf="playing && moving"> -->
     <img src="assets/shaker/shake-phone.gif" alt="screen" style="padding: 10px; margin-top: 40%;"
         *ngIf="playing && !moving">
 </div>
@@ -26,26 +17,13 @@
         <span *ngIf="dots == 1">.&nbsp;&nbsp;</span>
         <span *ngIf="dots == 0">&nbsp;&nbsp;&nbsp;</span>
     </p>
-    <!-- <img src="assets/catcher/pointing-center.jpg" alt="Handy zur Mitte" style="padding: 5px; height: 200px;"> -->
 </div>
 
-<!-- <div *ngIf="!tutorial && !playing && !played" style="color: white; text-align: center; margin-top: 100px; padding: 20px;">
-    <span>Warte, bis alle die Spielanleitung abgeschlossen haben</span>
-    <span *ngIf="dots == 3">...</span>
-    <span *ngIf="dots == 2">..&nbsp;</span>
-    <span *ngIf="dots == 1">.&nbsp;&nbsp;</span>
-    <span *ngIf="dots == 0">&nbsp;&nbsp;&nbsp;</span>
-</div> -->
-
-
 <div *ngIf="tutorial" style="color: white; margin-top: 0px;">
-    <!-- <button style="margin-top: 5px;" (click)="endTutorial()">Überspringen</button> -->
     <ion-slides #slides [options]="slideOptions">
         <ion-slide>
             <p style="font-size: 35px;">Schütteln!</p>
             <p>In diesem Spiel musst du dein Handy schütteln.</p>
-            <!-- <p style="font-size: 12px; line-height: 15px;">Sammelt nur Zutaten, die ihr braucht.</p> -->
-            <!-- <p style="font-size: 12px; line-height: 15px;">Los geht's!</p> -->
             <img src="assets/shaker/shake-phone.gif" alt="Handy schütteln">
             <div class="myButton nextButton" (click)="slides.slideNext()">
                 <p>Weiter &#8594;</p>
@@ -53,11 +31,7 @@
         </ion-slide>
         <ion-slide>
             <p style="font-size: 35px;">Früchte herunterschütteln</p>
-            <!-- <p style="font-size: 12px; line-height: 15px;">Wenn du fest schüttelst, fallen Früchte von den Bäumen.</p> -->
-            <!-- <p>Wenn ihr schüttelt, fallen die Früchte. Schüttelt so viele wie möglich herunter!</p> -->
             <p>Schüttelt gemeinsam, damit viele Früchte fallen.</p>
-            <!-- <p>Ihr spielt gemeinsam als Team!</p> -->
-            <!-- <img src="assets/shaker/screen.png" alt="screen" style="padding: 5px; height: 200px;"> -->
             <img src="assets/shaker/fruit-falling.jpg" alt="fallende Früchte">
             <div class="myButton nextButton" (click)="slides.slideNext()">
                 <p>Weiter &#8594;</p>
@@ -65,35 +39,12 @@
         </ion-slide>
         <ion-slide>
             <p style="font-size: 35px;">Achtung: Zutatenliste</p>
-            <!-- <p style="font-size: 12px; line-height: 15px;">Wenn du fest schüttelst, fallen Früchte von den Bäumen.</p> -->
             <p>Schüttelt nur die Früchte herunter, die auf der Liste stehen!</p>
-            <!-- <img src="assets/shaker/screen.png" alt="screen" style="padding: 5px; height: 200px;"> -->
             <img src="assets/catcher/ingredient-list2.jpg" alt="Liste">
-            <!-- <p style="font-size: 20px;">Wie viele Becher Saft schafft ihr?</p> -->
             <div class="myButton nextButton" (click)="endTutorial()">
                 <p>Bin bereit!</p>
             </div>
         </ion-slide>
-        <!-- <ion-slide *ngIf="!moving" style="padding: 10px;">
-            <p style="text-decoration: underline;">Wie?</p>
-            <p style="font-size: 12px; line-height: 15px;">Euer Handy ist euer Werkzeug.</p>
-            <p style="font-size: 12px; line-height: 15px;">Schüttelt das Handy, um die Objekte zu schütteln.</p>
-            <img src="assets/shaker/hit.gif" alt="screen" style="padding: 10px;">
-            <p style="font-size: 12px; line-height: 15px;">Je mehr ihr alle gemeinsam schüttelt, desto mehr Früchte fallen!</p>
-            <div class="myButton" style="text-align: center;" (click)="endTutorial()">
-                <p style="margin: 0px; font-size: 16px;">Alles klar!</p>
-            </div>
-        </ion-slide> -->
-        <!-- <ion-slide *ngIf="!moving" style="padding: 10px;">
-            <p style="text-decoration: underline;">Wie?</p>
-            <p style="font-size: 12px; line-height: 15px;">Euer Handy ist euer Werkzeug.</p>
-            <p style="font-size: 12px; line-height: 15px;">Schüttelt das Handy, um die Objekte zu schütteln.</p>
-            <img src="assets/shaker/move.gif" alt="screen" style="padding: 10px;">
-            <p style="font-size: 12px; line-height: 15px;">Je mehr ihr alle gemeinsam schüttelt, desto mehr Früchte fallen!</p>
-            <div class="myButton" style="text-align: center;" (click)="endTutorial()">
-                <p style="margin: 0px; font-size: 16px;">Alles klar!</p>
-            </div>
-        </ion-slide> -->
     </ion-slides>
     <div class="myButton nextButton skipButton" (click)="endTutorial()">
         <p>Überspringen &#8677;</p>
