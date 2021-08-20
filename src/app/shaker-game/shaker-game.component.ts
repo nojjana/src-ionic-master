@@ -81,8 +81,6 @@ export class ShakerGameComponent implements OnInit, OnDestroy {
     });
   }
 
-  
-
   ngOnDestroy() {
     clearInterval(this.sensorInterval);
     this.socketService.removeListener('controllerResponsibility');
@@ -90,7 +88,6 @@ export class ShakerGameComponent implements OnInit, OnDestroy {
     this.socketService.removeListener('startSendingData');
     clearInterval(this.dotInterval);
   }
-
 
 
   /* Development Controls (Buttons) */

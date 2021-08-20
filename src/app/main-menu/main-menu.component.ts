@@ -16,7 +16,7 @@ export class MainMenuComponent implements OnDestroy, OnDestroy {
 
   constructor(private socketService: SocketService, private vibration: Vibration) {
     /* Set listener, if this controller is the main-controller of the main-menu */
-    /* TODO: Investigate if this listener is set early enough, before first event gets fired */
+    /* Investigate if this listener is set early enough, before first event gets fired */
     this.socketService.on('mainController', (mainController: boolean) => {
       this.mainController = mainController;
       if(this.mainController){

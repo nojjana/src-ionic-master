@@ -1,11 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { DeviceMotion, DeviceMotionAccelerationData } from '@ionic-native/device-motion/ngx';
-import { SocketService } from '../socket-service/socket.service';
-import { Gyroscope, GyroscopeOptions, GyroscopeOrientation } from '@ionic-native/gyroscope/ngx';
-import { DeviceOrientation, DeviceOrientationCompassHeading, DeviceOrientationCompassOptions } from '@ionic-native/device-orientation/ngx';
-import { environment } from 'src/environments/environment';
-import { Platform } from '@ionic/angular';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { DeviceMotion } from '@ionic-native/device-motion/ngx';
+import { DeviceOrientation, DeviceOrientationCompassHeading } from '@ionic-native/device-orientation/ngx';
+import { Gyroscope } from '@ionic-native/gyroscope/ngx';
 import { Vibration } from '@ionic-native/vibration/ngx';
+import { Platform } from '@ionic/angular';
+import { SocketService } from '../socket-service/socket.service';
 
 @Component({
   selector: 'app-catcher-game',
@@ -20,7 +19,6 @@ export class CatcherGameComponent implements OnInit, OnDestroy {
   public countdown = false;
   public catchingController = true;
   public showMainMenuButton: boolean = false;
-  private devValY: number = 0;
   public devControls;
   public dots = 0;
   private dotInterval;
@@ -32,7 +30,6 @@ export class CatcherGameComponent implements OnInit, OnDestroy {
   currentOY = 0;
   currentOZ = 0;
   justSendedData: any;
-  private devVal: number = 0;
   initHeadingOfController: number;
 
   constructor(private socketService: SocketService, private gyroscope: Gyroscope,
@@ -52,13 +49,8 @@ export class CatcherGameComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.socketService.once('controllerResponsibility', (data) => {
       this.catchingController = data.tutorial;
-      console.log("Catch controller: "+this.catchingController+" / DATA: "+data.tutorial+" / NUMBER: "+data.controllerId);
-
       this.tutorial = data.tutorial;
-
       this.controllerNumber = data.controllerId;
-      console.log("controller number: "+data.controllerId);
-
     });
 
     this.socketService.once('stopSendingData', (mainControllerId) => {
@@ -79,7 +71,6 @@ export class CatcherGameComponent implements OnInit, OnDestroy {
       let controllerId = nrArray[0];
       if (controllerId == this.controllerNumber) {
         this.vibration.vibrate(100);
-        console.log("controller vibrate (sendID, setID): ", controllerId, this.controllerNumber)
       }
     });
     
@@ -87,7 +78,7 @@ export class CatcherGameComponent implements OnInit, OnDestroy {
 
     this.socketService.once('startSendingData', () => {
       this.playing = true;
-      console.log('start Sending data');
+      console.log('start sending data');
 
       if (this.devControls) {
       } else {
@@ -96,7 +87,6 @@ export class CatcherGameComponent implements OnInit, OnDestroy {
     });
   }
 
-  
   ngOnDestroy() {
     clearInterval(this.sensorInterval);
     this.socketService.removeListener('controllerResponsibility');
@@ -106,14 +96,10 @@ export class CatcherGameComponent implements OnInit, OnDestroy {
     clearInterval(this.dotInterval);
   }
 
-
-
     /* -------------------- DEV CONTROLS --------------------*/
-
   
   public left(): void {
     this.socketService.emit('controllerData', [-1, this.controllerNumber]);
-
   }
 
   public center(): void {
